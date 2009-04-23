@@ -1,4 +1,4 @@
-#summary Cliente J2ME
+#summary Cliente para dispositivos móveis compatíveis com J2ME
 
 = Requisitos Funcionais =
 
