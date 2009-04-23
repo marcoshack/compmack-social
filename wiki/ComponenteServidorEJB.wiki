@@ -1,5 +1,7 @@
 #summary Componente EJB
 
+Projeto *[http://code.google.com/p/compmack-social/source/browse/#svn/trunk/csocial-server-ejb csocial-server-ejb]*.
+
 <br/>
 ----
 
