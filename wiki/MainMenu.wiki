@@ -9,7 +9,7 @@
   * [JavaDoc JavaDoc]
  * [Arquitetura Arquitetura]
   * [RequisitosNaoFuncionais Requisitos Não-Funcionais]
- * Componentes
+ * [Componentes Componentes]
   * [ComponenteServidorEJB Servidor-EJB]
   * [ComponenteServidorWAR Servidor-Web]
   * [ComponenteClienteJ2ME Cliente-J2ME]
