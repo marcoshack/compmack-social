@@ -1,5 +1,10 @@
 #summary Componente WAR (interface Web)
 
+Projeto *[http://code.google.com/p/compmack-social/source/browse/#svn/trunk/csocial-server-war csocial-server-war]*.
+
+<br/>
+----
+
 = Requisitos Funcionais =
 
 Conforme definido nos [ModelagemCasoDeUsoSistemico Casos de Uso Sistêmicos] a inteface Web do sistema deve fornecer as seguintes funcionalidades:
