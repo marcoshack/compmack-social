@@ -1,0 +1,20 @@
+#summary Usando Netbeans como IDE
+
+<br/>
+----
+
+= Subversion Checkout =
+
+Abra o menu *Team / Subversion / Checkout*
+
+[http://compmack-social.googlecode.com/svn/static/images/nb-svn-01-repository.png]
+
+<br/>
+
+[http://compmack-social.googlecode.com/svn/static/images/nb-svn-02-checkout.png]
+
+<br/>
+
+Confirme a abertura dos projetos e selecione todos usando __Shift__
+
+[http://compmack-social.googlecode.com/svn/static/images/nb-svn-03-open_projects.png]
