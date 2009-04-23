@@ -1,0 +1,9 @@
+#summary Requisitos Não Funcionais do Projeto
+
+ * Utilização de Padrões J2EE
+ * Servlet/JSP 
+ * EJB 3.0
+ * JPA
+ * XML como formato de troca de dados com sistemas externos
+ * J2ME
+ * JMF
