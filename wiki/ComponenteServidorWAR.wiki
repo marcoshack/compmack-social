@@ -1,0 +1,34 @@
+#summary Componente WAR (interface Web)
+
+= Requisitos Funcionais =
+
+Conforme definido nos [ModelagemCasoDeUsoSistemico Casos de Uso Sistêmicos] a inteface Web do sistema deve fornecer as seguintes funcionalidades:
+
+ * Amigo
+  * Localizar
+  * Exibir
+  * Aceitar Convite
+  * Manter
+   * Adicionar
+   * Remover
+
+ * Fotos
+  * Listar
+  * Exibir
+  * Manter
+   * Adicionar
+   * Remover
+
+ * Vídeos
+  * Listar
+  * Reproduzir
+  * Manter
+   * Adicionar
+   * Remover
+
+ * Mural de Recados
+  * Listar
+  * Exibir
+  * Manter
+   * Adicionar
+   * Remover
