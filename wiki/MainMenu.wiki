@@ -1,16 +1,15 @@
 #summary Menu Principal.
 <br/>
 
-*Documentação*
- * [ModelagemCasoDeUsoSistemico Casos de Uso de Sistema]
- * [CasosDeUsoNegocio Casos de Uso de Negócio]
- * [ModelagemWAE Modelagem WAE]
- * [DiagramaDeClasses Diagrama de Classes]
- * [JavaDoc JavaDoc]
-
-*Componentes*
- * [ComponenteServidorEJB Servidor-EJB]
- * [ComponenteServidorWAR Servidor-Web]
- * [ComponenteClienteJ2ME Cliente-J2ME]
+ * Documentação*
+  * [ModelagemCasoDeUsoSistemico Casos de Uso de Sistema]
+  * [CasosDeUsoNegocio Casos de Uso de Negócio]
+  * [ModelagemWAE Modelagem WAE]
+  * [DiagramaDeClasses Diagrama de Classes]
+  * [JavaDoc JavaDoc]
+ * Componentes
+  * [ComponenteServidorEJB Servidor-EJB]
+  * [ComponenteServidorWAR Servidor-Web]
+  * [ComponenteClienteJ2ME Cliente-J2ME]
 
 <br/>
