@@ -2,8 +2,7 @@
 <br/>
 
  * Desenvolvimento
-  * Modelagem
-   * [ModelagemCasoDeUsoSistemico Casos de Uso Sistêmico]
-   * [ModelagemWAE Modelagem WAE]
+  * [ModelagemCasoDeUsoSistemico Casos de Uso Sistêmico]
+  * [ModelagemWAE Modelagem WAE]
 
 <br/>
