@@ -1,0 +1,3 @@
+#summary Modelagem dos Casos de Uso Sistêmicos
+
+[http://compmack-social.googlecode.com/svn/static/images/modelagem-uc-sistemico.png]
