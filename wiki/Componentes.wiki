@@ -1,0 +1,7 @@
+#summary Componentes do Sistema
+
+ * [ComponenteServidorEJB Servidor-EJB]: Camada de Acesso a Dados (DAO) e Regras de Negócios (Session Beans)
+
+ * [ComponenteServidorWAR Servidor-Web]: Interface Web e possivelmente Web Services para integração com sistemas e clientes externos (J2ME por exemplo)
+
+ * [ComponenteClienteJ2ME Cliente-J2ME]: Cliente para dispositivos móveis compatíveis com a tecnologia J2ME.
