@@ -7,6 +7,7 @@
   * [ModelagemWAE Modelagem WAE]
   * [DiagramaDeClasses Diagrama de Classes]
   * [JavaDoc JavaDoc]
+ * [Arquitetura Arquitetura]
  * Componentes
   * [ComponenteServidorEJB Servidor-EJB]
   * [ComponenteServidorWAR Servidor-Web]
