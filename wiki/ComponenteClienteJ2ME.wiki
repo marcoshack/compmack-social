@@ -1,6 +1,6 @@
 #summary Cliente para dispositivos móveis compatíveis com J2ME
 
-Projeto *[http://code.google.com/p/compmack-social/source/browse/#svn/trunk/csocial-cliente-j2me]*.
+Projeto *[http://code.google.com/p/compmack-social/source/browse/#svn/trunk/csocial-cliente-j2me csocial-cliente-j2me]*.
 
 <br/>
 ----
