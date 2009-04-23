@@ -10,7 +10,12 @@ Inicialmente utilizaremos o framework [http://www.hibernate.org/ Hibernate] como
 
 <br/>
 
-= Regras de Negócio =
+= Objetos Persistentes (Entity Beans) =
+
+*TODO* modelar os Entity Beans.
+
+
+= Regras de Negócio (Session Beans) =
 
 As regras de negócios do sistema serão implementados como __Session Beans__.
 
