@@ -1,5 +1,10 @@
 #summary Cliente para dispositivos móveis compatíveis com J2ME
 
+Projeto *[http://code.google.com/p/compmack-social/source/browse/#svn/trunk/csocial-cliente-j2me]*.
+
+<br/>
+----
+
 = Requisitos Funcionais =
 
 Conforme definido nos [ModelagemCasoDeUsoSistemico Casos de Uso Sistêmicos] a inteface cliente para dispositivos móveis compatíveis com J2ME deve fornecer as seguintes funcionalidades, sendo um subconjunto (__"somente leitura"__) das funcionalidades disponibilizadas através da [ComponenteServidorWAR Interface Web]:
