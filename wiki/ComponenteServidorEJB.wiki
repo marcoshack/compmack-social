@@ -1,5 +1,8 @@
 #summary Componente EJB
 
+<br/>
+----
+
 = Acesso a Dados (DAO) =
 
 Camada de acesso a dados utilizando JPA. Deve fornecer uma camada de abstração para o acesso aos objetos persistidos em um Sistema Gerenciador de Banco de Dados (SGBD).
@@ -9,11 +12,14 @@ Inicialmente utilizaremos o framework [http://www.hibernate.org/ Hibernate] como
 *TODO* definir DAOs necessários conforme os [ModelagemCasoDeUsoSistemico casos de uso sistêmicos].
 
 <br/>
+----
 
 = Objetos Persistentes (Entity Beans) =
 
 *TODO* modelar os Entity Beans.
 
+<br/>
+----
 
 = Regras de Negócio (Session Beans) =
 
@@ -21,4 +27,5 @@ As regras de negócios do sistema serão implementados como __Session Beans__.
 
 *TODO* definir __Beans__ necessários conforme os [ModelagemCasoDeUsoSistemico casos de uso sistêmicos].
 
+----
 <br/>
