@@ -11,6 +11,8 @@ Abra o menu *Team / Subversion / Checkout*
 
 <br/>
 
+Criei um diretório para abrigar o projeto, p.ex. *~/work/compmack-social/*, será criada uma pasta *trunk* com o conteúdo do projeto
+
 [http://compmack-social.googlecode.com/svn/static/images/nb-svn-02-checkout.png]
 
 <br/>
