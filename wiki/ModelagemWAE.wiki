@@ -1,0 +1,3 @@
+#summary Modelagem WAE
+
+[http://compmack-social.googlecode.com/svn/static/images/modelagem-wae.png]
