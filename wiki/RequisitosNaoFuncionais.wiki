@@ -1,4 +1,4 @@
-#summary Requisitos Não Funcionais do Projeto
+#summary Requisitos Não-Funcionais do Projeto
 
  * Utilização de Padrões J2EE
  * Servlet/JSP 
