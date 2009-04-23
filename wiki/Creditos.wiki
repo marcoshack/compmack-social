@@ -1,0 +1,11 @@
+#summary Créditos do Projeto
+
+ * Daniel Lustosa
+
+ * Eduardo Severino
+
+ * Felipe Rippi
+
+ * Gabriel Saraiva
+
+ * Marcos Hack
