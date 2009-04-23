@@ -7,6 +7,8 @@
   * [ComponenteServidorEJB Servidor-EJB]
   * [ComponenteServidorWAR Servidor-Web]
   * [ComponenteClienteJ2ME Cliente-J2ME]
+ * Workspace
+  * [WorkspaceNetbeans Netbeans]
  * [Creditos Créditos]
 
 <br/>
