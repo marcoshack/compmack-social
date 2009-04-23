@@ -1,0 +1,21 @@
+#summary Cliente J2ME
+
+= Requisitos Funcionais =
+
+Conforme definido nos [ModelagemCasoDeUsoSistemico Casos de Uso Sistêmicos] a inteface cliente para dispositivos móveis compatíveis com J2ME deve fornecer as seguintes funcionalidades, sendo um subconjunto (__"somente leitura"__) das funcionalidades disponibilizadas através da [ComponenteServidorWAR Interface Web]:
+
+ * Amigos
+  * Localizar
+  * Exibir
+
+ * Álbum de Fotos
+  * Listar
+  * Exibir
+
+ * Vídeos
+  * Listar
+  * Reproduzir
+
+ * Mural de Recados
+  * Listar
+  * Exibir
