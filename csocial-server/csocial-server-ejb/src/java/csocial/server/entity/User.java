@@ -2,6 +2,7 @@ package csocial.server.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,16 +16,17 @@ import javax.persistence.Temporal;
 @Entity(name="users")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    
     private Long id;
     private String username;
+    private String password;
     private String email;
     private String realName;
     private String nickName;
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthday;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -33,6 +35,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @Temporal(value = javax.persistence.TemporalType.DATE)
     public Date getBirthday() {
         return birthday;
     }
@@ -41,6 +44,7 @@ public class User implements Serializable {
         this.birthday = birthday;
     }
 
+    @Basic(optional = false)
     public String getEmail() {
         return email;
     }
@@ -49,6 +53,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @Basic(optional = false)
     public String getRealName() {
         return realName;
     }
@@ -65,6 +70,7 @@ public class User implements Serializable {
         this.nickName = nickName;
     }
 
+    @Basic(optional = false)
     public String getUsername() {
         return username;
     }
@@ -73,7 +79,14 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    @Basic(optional = false)
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public int hashCode() {
