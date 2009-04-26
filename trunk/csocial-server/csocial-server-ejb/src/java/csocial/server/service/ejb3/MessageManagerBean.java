@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package csocial.server.service;
+package csocial.server.service.ejb3;
 
+import csocial.server.service.*;
 import csocial.server.entity.Message;
 import csocial.server.entity.User;
 import java.util.List;
@@ -17,7 +18,7 @@ import javax.persistence.PersistenceContext;
  * @author mhack
  */
 @Stateless
-public class MessageManagerBean implements MessageManagerLocal {
+public class MessageManagerBean implements MessageManager {
     @PersistenceContext(name = "csocial-pu")
     protected EntityManager em;
 

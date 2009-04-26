@@ -14,24 +14,7 @@ import javax.ejb.Local;
  * @author mhack
  */
 @Local
-public interface UserManagerLocal {
-
-    /**
-     * Insere ou atualiza (caso ja exista) o objeto User no banco de dados.
-     * 
-     * @param user
-     * @throws UserAlreadyExistException se ja existir um usuario com mesmo
-     * username ou endereco de e-mail.
-     */
-    public void save(User user) throws UserAlreadyExistException;
-
-    /**
-     * Busca objeto User pelo 'id' informado.
-     *
-     * @param id
-     * @return
-     */
-    public User getUser(long id);
+public interface UserManager extends GenericManager<User, Long> {
 
     /**
      * Retorna objeto User cujo 'username' eh exatamente igual ao informado como
@@ -40,7 +23,7 @@ public interface UserManagerLocal {
      * @param username
      * @return User ou nulo nao exista usuario o username informado.
      */
-    public User getByUsername(String username);
+    public User findByUsername(String username);
 
 
     /**
@@ -50,7 +33,7 @@ public interface UserManagerLocal {
      * @param email
      * @return
      */
-    public User getByEmail(String email);
+    public User findByEmail(String email);
 
 
     /**
