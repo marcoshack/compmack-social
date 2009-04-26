@@ -15,7 +15,7 @@ import javax.ejb.Local;
  * @author mhack
  */
 @Local
-public interface MessageManagerLocal {
+public interface MessageManager {
 
     /**
      * Insere ou atualiza (caso ja exista) a mensagem no banco de dados.

@@ -5,9 +5,11 @@
 package csocial.server.controller;
 
 import csocial.server.entity.User;
-import csocial.server.service.UserManagerLocal;
+import csocial.server.service.UserManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,11 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController extends HttpServlet {
 
     @EJB
-    private UserManagerLocal userManagerBean;
+    private UserManager userManagerBean;
     private Logger log = Logger.getLogger(UserController.class.getName());
 
     /** 
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,12 +39,33 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        User u = userManagerBean.getUser(id);
+        // TODO Codigo de teste, substituir pela logica do controller.
+
+        List<User> userList = new ArrayList<User>();
+
+        String strId = request.getParameter("id");
+        if (strId != null) {
+            Long id = Long.parseLong(request.getParameter("id"));
+            userList.add(userManagerBean.findById(id));
+        }
+
+        String username = request.getParameter("username");
+        if (username != null) {
+            userList.add(userManagerBean.findByUsername(username));
+        }
+
+        String pattern = request.getParameter("pattern");
+        if (pattern != null) {
+            userList.addAll(userManagerBean.find(pattern));
+        }
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            out.println(u);
+            for (User u : userList) {
+                out.println(u);
+                out.print("<br/>");
+            }
         } finally {
             out.close();
         }
@@ -49,6 +73,7 @@ public class UserController extends HttpServlet {
 
     /** 
      * Handles the HTTP <code>POST</code> method.
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

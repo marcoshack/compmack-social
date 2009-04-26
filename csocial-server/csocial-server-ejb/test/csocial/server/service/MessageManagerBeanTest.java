@@ -5,6 +5,7 @@
 
 package csocial.server.service;
 
+import csocial.server.service.ejb3.MessageManagerBean;
 import csocial.server.entity.Message;
 import csocial.server.entity.User;
 import java.util.HashMap;

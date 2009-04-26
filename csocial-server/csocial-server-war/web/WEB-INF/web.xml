@@ -27,7 +27,7 @@
     <ejb-local-ref>
         <ejb-ref-name>UserManagerBean</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>csocial.server.service.UserManagerLocal</local>
+        <local>csocial.server.service.UserManager</local>
         <ejb-link>csocial-server-ejb.jar#UserManagerBean</ejb-link>
     </ejb-local-ref>
 </web-app>
