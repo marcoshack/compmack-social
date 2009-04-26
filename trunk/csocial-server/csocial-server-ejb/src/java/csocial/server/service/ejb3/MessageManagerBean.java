@@ -10,31 +10,21 @@ import csocial.server.entity.Message;
 import csocial.server.entity.User;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author mhack
  */
 @Stateless
-public class MessageManagerBean implements MessageManager {
-    @PersistenceContext(name = "csocial-pu")
-    protected EntityManager em;
+public class MessageManagerBean extends GenericManagerBean<Message, Long>
+        implements MessageManager
+{
 
-    public void save(Message m) {
+    public List<Message> findByOwner(User u) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Message getMessage(Long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Message> getByOwner(User u) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Message> getBySender(User u) {
+    public List<Message> findBySender(User u) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

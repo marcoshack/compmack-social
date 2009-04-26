@@ -44,7 +44,8 @@ public abstract class GenericManagerBean<T, ID extends Serializable>
     }
 
     public T save(T entity) {
-        return em.merge(entity);
+        em.persist(entity);
+        return entity;
     }
 
     protected T getSingleResult(Query q) {
