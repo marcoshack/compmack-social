@@ -7,13 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
-@Entity(name="users")
+@Entity
+@Table(
+    name = "users",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames={"username"}),
+        @UniqueConstraint(columnNames={"email"})
+    }
+)
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -110,7 +119,14 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "compmack.social.server.entity.User[id=" + id + "]";
+        StringBuilder sb = new StringBuilder("User[id = ").append(id);
+        sb.append(", username = ").append(username);
+        sb.append(", email = ").append(email);
+        sb.append(", realName = ").append(realName);
+        sb.append(", nickName = ").append(nickName);
+        sb.append(", birthday = ").append(birthday);
+        sb.append("]");
+        return sb.toString();
     }
 
 }
