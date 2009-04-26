@@ -15,22 +15,7 @@ import javax.ejb.Local;
  * @author mhack
  */
 @Local
-public interface MessageManager {
-
-    /**
-     * Insere ou atualiza (caso ja exista) a mensagem no banco de dados.
-     *
-     * @param mensagem
-     */
-    public void save(Message m);
-
-    /**
-     * Busca mensagem pelo ID informado.
-     *
-     * @param ID da mensagem.
-     * @return Mensagem ou nulo caso nao exista mensagem com esse ID.
-     */
-    public Message getMessage(Long id);
+public interface MessageManager extends GenericManager<Message, Long> {
 
     /**
      * Busca lista de mensagens pelo dono.
@@ -38,7 +23,7 @@ public interface MessageManager {
      * @param Dono da mensagem (destinatario)
      * @return Lista de mensagens.
      */
-    public List<Message> getByOwner(User u);
+    public List<Message> findByOwner(User u);
 
     /**
      * Busca lista de mensagens enviadas pelo usuario informado como parametro.
@@ -46,7 +31,7 @@ public interface MessageManager {
      * @param Usario cuja lista de mensagens enviadas deseja-se recuperar.
      * @return Lista de mensagens
      */
-    public List<Message> getBySender(User u);
+    public List<Message> findBySender(User u);
 
     /**
      * Busca lista de mensagens que podem ser visualizadas pelo usuario 'user'.
