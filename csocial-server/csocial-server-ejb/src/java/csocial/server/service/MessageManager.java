@@ -20,7 +20,7 @@ public interface MessageManager extends GenericManager<Message, Long> {
     /**
      * Busca lista de mensagens pelo dono.
      *
-     * @param Dono da mensagem (destinatario)
+     * @param u Dono da mensagem (destinatario)
      * @return Lista de mensagens.
      */
     public List<Message> findByOwner(User u);
@@ -28,13 +28,17 @@ public interface MessageManager extends GenericManager<Message, Long> {
     /**
      * Busca lista de mensagens enviadas pelo usuario informado como parametro.
      *
-     * @param Usario cuja lista de mensagens enviadas deseja-se recuperar.
+     * @param u Usario cuja lista de mensagens enviadas deseja-se recuperar.
      * @return Lista de mensagens
      */
     public List<Message> findBySender(User u);
 
     /**
-     * Busca lista de mensagens que podem ser visualizadas pelo usuario 'user'.
+     * Busca lista de mensagens que podem ser visualizadas pelo usuario 'user' e
+     * que casam com a string 'text'.
+     *
+     * @param u Usuario cuja lista de mensagens deseja-se recuperar.
+     * @param text Texto a ser utilizado como filtro
      */
-    public List<Message> find(User user, String pattern);
+    public List<Message> find(User u, String text);
 }
