@@ -26,8 +26,8 @@ public class MessageManagerTest extends GenericManagerTest {
     @Test
     public void testSave() {
         startTransaction();
-        User author = createUser("foo");
-        User owner = createUser("bar");
+        User author = createUser("foo_save");
+        User owner = createUser("bar_save");
         Message m = createMessage(author, owner, "save() method test message");
         commit();
         
@@ -45,8 +45,8 @@ public class MessageManagerTest extends GenericManagerTest {
     @Test
     public void testFindByOwner() {
         startTransaction();
-        User author = createUser("foo");
-        User owner = createUser("bar");
+        User author = createUser("foo_findbyowner");
+        User owner = createUser("bar_findbyowner");
         createMessage(author, owner, "findByOwner() method test message");
         commit();
 
@@ -65,8 +65,8 @@ public class MessageManagerTest extends GenericManagerTest {
     @Test
     public void testFindBySender() {
         startTransaction();
-        User author = createUser("foo");
-        User owner = createUser("bar");
+        User author = createUser("foo_findbysender");
+        User owner = createUser("bar_findbysender");
         createMessage(author, owner, "findBySender() method test message");
         commit();
 
@@ -85,8 +85,8 @@ public class MessageManagerTest extends GenericManagerTest {
     @Test
     public void testFind() {
         startTransaction();
-        User author = createUser("foo");
-        User owner = createUser("bar");
+        User author = createUser("foo_find");
+        User owner = createUser("bar_find");
         String pattern = "testFind pattern";
         createMessage(author, owner, "find() method test message (" + pattern
                 + ")");
