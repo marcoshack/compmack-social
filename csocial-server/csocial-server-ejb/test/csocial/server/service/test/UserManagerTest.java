@@ -2,13 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package csocial.server.service;
+package csocial.server.service.test;
 
+import csocial.server.service.*;
 import csocial.server.entity.User;
+import csocial.server.service.test.util.ServiceLocator;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static csocial.server.service.test.util.UserUtils.createUser;
 
 /**
  *
@@ -22,7 +25,7 @@ public class UserManagerTest extends GenericManagerTest {
     @Override
     public void setUp() {
         super.setUp();
-        usrManager = createUserManager();
+        usrManager = ServiceLocator.getInstance().createUserManager(getEntityManager());
     }
 
     /**
@@ -31,7 +34,7 @@ public class UserManagerTest extends GenericManagerTest {
     @Test
     public void testSave() {
         startTransaction();
-        User user = createUser("foo_save");
+        User user = createUser("foo_save", getEntityManager());
         commit();
 
         assertNotNull("Nao foi possivel recuperar o usuario '", user.getId());
@@ -43,7 +46,7 @@ public class UserManagerTest extends GenericManagerTest {
     @Test
     public void testFindById() {
         startTransaction();
-        User user = createUser("foo_findById");
+        User user = createUser("foo_findById", getEntityManager());
         commit();
 
         User res = usrManager.findById(user.getId());
@@ -61,7 +64,7 @@ public class UserManagerTest extends GenericManagerTest {
     @Test
     public void testFindByUsername() {
         startTransaction();
-        User user = createUser("foo_findByUsername");
+        User user = createUser("foo_findByUsername", getEntityManager());
         commit();
         
         User res = usrManager.findByUsername(user.getUsername());
@@ -79,7 +82,7 @@ public class UserManagerTest extends GenericManagerTest {
     @Test
     public void testFindByEmail() {
         startTransaction();
-        User user = createUser("foo_findByEmail");
+        User user = createUser("foo_findByEmail", getEntityManager());
         commit();
 
         User u = usrManager.findByEmail(user.getEmail());
@@ -97,7 +100,7 @@ public class UserManagerTest extends GenericManagerTest {
     @Test
     public void testFind() {
         startTransaction();
-        User user = createUser("foo_pattern_find");
+        User user = createUser("foo_pattern_find", getEntityManager());
         commit();
 
         List<User> userList = usrManager.find("pattern");

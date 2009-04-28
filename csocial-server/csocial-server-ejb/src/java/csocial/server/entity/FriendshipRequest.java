@@ -2,18 +2,21 @@ package csocial.server.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
-@Entity(name = "friendship_requests")
+@Entity
+@Table(name = "friendship_requests")
 public class FriendshipRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,6 +26,18 @@ public class FriendshipRequest implements Serializable {
     private FriendshipRequestStatus status;
     private String message;
     private Date requestDate;
+
+    public FriendshipRequest() {
+        setStatus(FriendshipRequestStatus.PENDING);
+        setRequestDate(GregorianCalendar.getInstance().getTime());
+    }
+
+    public FriendshipRequest(User from, User to, String requestMessage) {
+        this();
+        setFromUser(from);
+        setToUser(to);
+        setMessage(requestMessage);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
