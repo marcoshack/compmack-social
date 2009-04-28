@@ -12,8 +12,9 @@ import javax.persistence.EntityManager;
  * Classe auxiliar para localizacao de servicos utilizados nos testes.
  *
  * Alguns servicos quando utilizados fora do container J2EE precisam ser
- * inicializados de forma especial, por exemplo unidades de persistencia
- * (Persistence Unit) do JPA.
+ * inicializados de forma especial, por exemplo Session Beans devem ter suas
+ * unidades de persistencia (Persistence Unit) reatribuidas para o recurso local
+ * (fora do container).
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
