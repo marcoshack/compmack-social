@@ -139,7 +139,8 @@ public abstract class GenericManagerTest {
     protected User createUser(String username) {
         User u = new User();
         u.setUsername(username);
-        u.setRealName(username + " Something");
+        u.setNickName(username + " nick");
+        u.setRealName(username + " surename");
         u.setPassword(username + "_password");
         u.setEmail(username + "@example.com");
         u.setBirthday(GregorianCalendar.getInstance().getTime());

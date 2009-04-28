@@ -28,7 +28,7 @@ public class UserManagerBean extends GenericManagerBean<User, Long>
 
     public User findByEmail(String email) {
         Query q = getEntityManager().createQuery("FROM User u WHERE "
-                + "u.email = :?");
+                + "u.email = :email");
 
         q.setParameter("email", email);
         return getSingleResult(q);
