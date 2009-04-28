@@ -74,14 +74,14 @@ public class FriendshipManagerBean extends GenericManagerBean<Friendship, Long>
 
     public List<FriendshipRequest> getPendingFriendshipRequestList(User user) {
         Query q = getEntityManager().createQuery("FROM FriendshipRequest fq "
-                + "WHERE fq.friend = :user");
-        q.setParameter("friend", user);
+                + "WHERE fq.toUser = :user");
+        q.setParameter("user", user);
         return q.getResultList();
     }
 
     public List<FriendshipRequest> getSentFriendshipRequestList(User user) {
         Query q = getEntityManager().createQuery("FROM FriendshipRequest fq "
-                + "WHERE fq.user = :user");
+                + "WHERE fq.fromUser = :user");
         q.setParameter("user", user);
         return q.getResultList();
     }

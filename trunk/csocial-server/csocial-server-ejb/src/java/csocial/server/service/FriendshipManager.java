@@ -16,7 +16,7 @@ import javax.ejb.Local;
  * @author Marcos Hack <marcoshack@gmail.com>
  */
 @Local
-public interface FriendshipManager {
+public interface FriendshipManager extends GenericManager<Friendship, Long> {
 
     /**
      * Retorna o objeto Friendship que representa a relacao de amizade entre os
@@ -46,6 +46,12 @@ public interface FriendshipManager {
 
     /**
      * Aceita a requisicao de amizade.
+     *
+     * Cria duas entradas de relacao de amizade, request.from (owner) e
+     * request.to (friend), e o contrario request.to (owner) e request.from
+     * (friend). Isso eh necessario para permitir que cada usuario adicione
+     * atributos privados (somente o usuario tem acesso a tais atributos) em uma
+     * relacao de amizade.
      *
      * @param Requisicao a ser aceita
      */
