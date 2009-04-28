@@ -38,7 +38,7 @@ public interface UserManager extends GenericManager<User, Long> {
 
     /**
      * Retorna lista de usuarios cujo o padrao informado no parametro 'pattern'
-     * case com o conteudo de um ou mais dos seguintes campos: username, 
+     * casa com o conteudo de um ou mais dos seguintes campos: username,
      * endereco de e-mail ou nome real do usuario.
      * 
      * @param Padrao a ser buscado
