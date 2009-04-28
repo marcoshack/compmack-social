@@ -9,12 +9,14 @@ import csocial.server.service.FriendshipRequestAlreadyExistException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 /**
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
+@Stateless
 public class FriendshipManagerBean extends GenericManagerBean<Friendship, Long> 
         implements FriendshipManager
 {
