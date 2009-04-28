@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  * Classe abstrata com codigo comum para os testes de *ManagerBean. Cada teste
@@ -21,12 +22,19 @@ import org.junit.Before;
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
-public abstract class GenericManagerBeanTest {
+public abstract class GenericManagerTest {
+
     private EntityManager em;
+    private static EntityManagerFactory emf;
     protected static Logger log;
 
-    public GenericManagerBeanTest() {
+    public GenericManagerTest() {
         log = Logger.getLogger(this.getClass().getName());
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        emf = Persistence.createEntityManagerFactory("csocial-test-pu");
     }
 
     /**
@@ -38,8 +46,6 @@ public abstract class GenericManagerBeanTest {
      */
     @Before
     public void setUp() {
-        // TODO [mhack] nao recriar a factory em cada execucao do teste
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("csocial-test-pu");
         em = emf.createEntityManager();
     }
 

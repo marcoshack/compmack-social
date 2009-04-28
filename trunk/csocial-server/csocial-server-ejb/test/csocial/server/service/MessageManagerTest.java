@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
-public class MessageManagerBeanTest extends GenericManagerBeanTest {
+public class MessageManagerTest extends GenericManagerTest {
 
     /**
      * Teste do metodo save() da classe MessageManagerBean. Cria dois usuarios
