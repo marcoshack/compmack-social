@@ -81,9 +81,9 @@ public class FriendshipManagerTest extends GenericManagerTest {
 
         // POS: Lista contendo os 'nFriends' amigos de 'owner'
         assertNotNull("Nao foi possivel resgatar lista de amigos", friendList);
-        assertEquals("Tamanho incorreto da lista de amigos, esperava "
+        assertTrue("Tamanho incorreto da lista de amigos, esperava "
                 + nFriends + " mas obtive " + friendList.size(), 
-                nFriends, friendList.size());
+                nFriends == friendList.size());
     }
 
     /**
@@ -235,9 +235,9 @@ public class FriendshipManagerTest extends GenericManagerTest {
 
         // POS: Lista contendo as requisicoes de 'from' para os 'nFriends'
         assertNotNull("Nao foi possivel resgatar lista de requisicoes", fsList);
-        assertEquals("Tamanho incorreto da lista de requisicoes, esperava "
+        assertTrue("Tamanho incorreto da lista de requisicoes, esperava "
                 + nFriends + " mas obtive " + fsList.size(),
-                nFriends, fsList.size());
+                nFriends == fsList.size());
     }
 
     /**
@@ -266,8 +266,8 @@ public class FriendshipManagerTest extends GenericManagerTest {
 
         // POS: Lista contendo as requisicoes de 'from' para os 'nFriends'
         assertNotNull("Nao foi possivel resgatar lista de requisicoes", fsList);
-        assertEquals("Tamanho incorreto da lista de requisicoes, esperava "
+        assertTrue("Tamanho incorreto da lista de requisicoes, esperava "
                 + nFriends + " mas obtive " + fsList.size(),
-                nFriends, fsList.size());
+                nFriends == fsList.size());
     }
 }

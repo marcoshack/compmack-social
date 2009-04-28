@@ -108,10 +108,10 @@ public class UserManagerTest extends GenericManagerTest {
         assertNotNull("Nao foi possivel recuperar o usuario pelo endereco de "
                 + "e-mail '" + user.getEmail(), userList);
 
-        assertEquals("Apenas 1 registro deveria ser retornado", 1,
-                userList.size());
+        assertTrue("Apenas 1 registro deveria ser retornado",
+                userList.size() == 1);
 
-        assertEquals("IDs do usuario criado e recuperado nao batem",
-                user.getId(), userList.get(0).getId());
+        assertTrue("IDs do usuario criado e recuperado nao batem",
+                user.getId() == userList.get(0).getId());
     }
 }
