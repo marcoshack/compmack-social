@@ -30,7 +30,7 @@ public abstract class GenericManagerTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        emf = Persistence.createEntityManagerFactory("csocial-test-pu");
+        emf = Persistence.createEntityManagerFactory("csocial-server-pu-test");
     }
 
     /**
