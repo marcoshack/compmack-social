@@ -9,13 +9,13 @@ import csocial.server.entity.Friendship;
 import csocial.server.entity.FriendshipRequest;
 import csocial.server.entity.User;
 import java.util.List;
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author Marcos Hack <marcoshack@gmail.com>
  */
-@Local
+@Remote
 public interface FriendshipManager extends GenericManager<Friendship, Long> {
 
     /**

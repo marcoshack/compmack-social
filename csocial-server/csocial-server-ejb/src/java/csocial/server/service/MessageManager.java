@@ -8,13 +8,13 @@ package csocial.server.service;
 import csocial.server.entity.Message;
 import csocial.server.entity.User;
 import java.util.List;
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author mhack
  */
-@Local
+@Remote
 public interface MessageManager extends GenericManager<Message, Long> {
 
     /**
