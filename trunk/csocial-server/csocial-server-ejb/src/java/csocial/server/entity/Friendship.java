@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -17,6 +22,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "friendships")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +44,7 @@ public class Friendship implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlAttribute
     public Long getId() {
         return id;
     }
@@ -46,6 +54,7 @@ public class Friendship implements Serializable {
     }
 
     @ManyToOne
+    @XmlElement
     public User getFriend() {
         return friend;
     }
@@ -55,6 +64,7 @@ public class Friendship implements Serializable {
     }
 
     @ManyToOne
+    @XmlElement
     public User getOwner() {
         return owner;
     }
@@ -64,6 +74,7 @@ public class Friendship implements Serializable {
     }
 
     @Temporal(value = javax.persistence.TemporalType.DATE)
+    @XmlAttribute
     public Date getStartDate() {
         return startDate;
     }

@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -17,6 +22,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "friendship_requests")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class FriendshipRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +48,7 @@ public class FriendshipRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlAttribute
     public Long getId() {
         return id;
     }
@@ -50,6 +58,7 @@ public class FriendshipRequest implements Serializable {
     }
 
     @ManyToOne
+    @XmlElement
     public User getFromUser() {
         return fromUser;
     }
@@ -58,6 +67,7 @@ public class FriendshipRequest implements Serializable {
         this.fromUser = fromUser;
     }
 
+    @XmlAttribute
     public String getMessage() {
         return message;
     }
@@ -66,6 +76,7 @@ public class FriendshipRequest implements Serializable {
         this.message = message;
     }
 
+    @XmlAttribute
     public FriendshipRequestStatus getStatus() {
         return status;
     }
@@ -75,6 +86,7 @@ public class FriendshipRequest implements Serializable {
     }
 
     @Temporal(javax.persistence.TemporalType.DATE)
+    @XmlAttribute
     public Date getRequestDate() {
         return requestDate;
     }
@@ -84,6 +96,7 @@ public class FriendshipRequest implements Serializable {
     }
 
     @ManyToOne
+    @XmlElement
     public User getToUser() {
         return toUser;
     }
