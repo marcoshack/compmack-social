@@ -11,6 +11,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -18,6 +23,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "messages")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Message implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -31,6 +38,7 @@ public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @XmlAttribute
     public Long getId() {
         return id;
     }
@@ -41,6 +49,7 @@ public class Message implements Serializable {
 
     @ManyToOne
     @Basic(optional = false)
+    @XmlElement
     public User getAuthor() {
         return author;
     }
@@ -51,6 +60,7 @@ public class Message implements Serializable {
 
     @ManyToOne
     @Basic(optional = false)
+    @XmlElement
     public User getOwner() {
         return owner;
     }
@@ -61,6 +71,7 @@ public class Message implements Serializable {
 
     @Temporal(value = javax.persistence.TemporalType.DATE)
     @Basic(optional = false)
+    @XmlAttribute
     public Date getPostDate() {
         return postDate;
     }
@@ -70,6 +81,7 @@ public class Message implements Serializable {
     }
 
     @Basic(optional = false)
+    @XmlAttribute
     public MessageStatus getStatus() {
         return status;
     }
@@ -80,6 +92,7 @@ public class Message implements Serializable {
 
     @Lob
     @Basic(optional = false)
+    @XmlElement
     public String getText() {
         return text;
     }
@@ -89,6 +102,7 @@ public class Message implements Serializable {
     }
 
     @Basic(optional = false)
+    @XmlElement
     public String getSubject() {
         return subject;
     }
