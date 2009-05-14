@@ -43,11 +43,6 @@ public class AuthFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
-        String action = req.getParameter("a");
-        if (action != null && action.equals("register")) {
-            dispatch(req, res, "/?a=register");
-        }
-
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -58,36 +53,41 @@ public class AuthFilter implements Filter {
         User user = null;
         // Usuario nao esta autenticado e submeteu informacoes de login
         if (userID == null && username != null && password != null) {
-             user = authenticate(username, password);
-             if (user != null) {
+            user = authenticate(username, password);
+            if (user != null) {
                 session.setAttribute("user_id", user.getId());
                 session.setAttribute("username", user.getUsername());
-             }
+            }
         } else if (userID != null) {
             user = userManager.findById(userID);
         }
 
-        if (user == null) {
-            // Nao autenticou, retorna a tela de login
-            dispatch(req, res, "/login.jsp");
+        String action = req.getParameter("a");
+        if (user != null || action != null && action.equals("register")) {
+            // Autenticou ou estah se registrando
+            processFilterChain(req, res, chain);
 
         } else {
-            // Usuario autenticado, atende requisicao
-            try {
-                chain.doFilter(req, res);
-
-            } catch (Throwable t) {
-                t.printStackTrace();
-            }
+            // Nao autenticou, retorna a tela de login
+            dispatch(req, res, "/login.jsp");
         }
     }
 
     private void dispatch(ServletRequest req, ServletResponse res,
-            String page) throws IOException, ServletException
-    {
+            String page) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) req).getSession(true);
         ServletContext context = session.getServletContext();
         context.getRequestDispatcher(page).forward(req, res);
+    }
+
+    private void processFilterChain(ServletRequest req, ServletResponse res,
+            FilterChain chain) {
+        try {
+            chain.doFilter(req, res);
+
+        } catch (Throwable t) {
+            log("Error processing AuthFilter Chain", t);
+        }
     }
 
     /**
@@ -113,5 +113,9 @@ public class AuthFilter implements Filter {
 
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
+    }
+
+    public void log(String msg, Throwable t) {
+        filterConfig.getServletContext().log(msg, t);
     }
 }
