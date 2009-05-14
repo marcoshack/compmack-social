@@ -8,7 +8,7 @@
 <body>
     <jsp:include page="include/menu.jsp" />
 
-    <p>Voce tem <%= request.getAttribute("friend_count")%> amigos</p>
+    <p>You have <%= request.getAttribute("friend_count")%> friend(s).</p>
     <br>
 
 </body>

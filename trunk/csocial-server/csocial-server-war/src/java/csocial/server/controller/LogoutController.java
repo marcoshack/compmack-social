@@ -5,7 +5,6 @@
 
 package csocial.server.controller;
 
-import csocial.server.entity.User;
 import csocial.server.service.UserManager;
 import java.io.IOException;
 import javax.ejb.EJB;
@@ -27,14 +26,8 @@ public class LogoutController extends BaseController {
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
         throws ServletException, IOException
     {
-        String username = (String) req.getAttribute("username");
-        User user = userManager.findByUsername(username);
-
         HttpSession session = req.getSession();
-        session.removeAttribute("user");
-        session.removeAttribute("username");
-        session.removeAttribute("isAuthenticated");
-
+        session.invalidate();
         dispatch(req, res, "/login.jsp");
     }
 

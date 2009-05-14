@@ -29,10 +29,8 @@ public class LoginController extends BaseController {
         throws ServletException, IOException
     {
         HttpSession session = req.getSession();
-        String username = (String) session.getAttribute("username");
-        User user = userManager.findByUsername(username);
-
-        session.setAttribute("user", user);
+        Long userID = (Long) session.getAttribute("user_id");
+        User user = userManager.findById(userID);
         session.setAttribute("username", user.getUsername());
 
         ServletContext context = session.getServletContext();
