@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mhack
  */
-public class MessageController extends BaseController {
+public class ProfileController extends BaseController {
    
     @Override
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
-        dispatch(req, res, "/message.jsp");
+        dispatch(req, res, "/profile.jsp");
     }
 
 
