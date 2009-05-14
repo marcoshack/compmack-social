@@ -71,7 +71,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Basic(optional = false)
     @XmlAttribute
     public String getRealName() {
         return realName;
