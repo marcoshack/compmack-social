@@ -4,9 +4,11 @@
  */
 package csocial.server.controller;
 
+import csocial.server.entity.User;
 import csocial.server.service.FriendshipManager;
 import csocial.server.service.UserManager;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,12 @@ public class FriendshipController extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+
+        Long userID = getUser(req);
+        User user = userManagerBean.findById(userID);
+        List<User> friends = friendshipManagerBean.getFriendList(user);
+
+        req.setAttribute("friend_list", friends);
 
         dispatch(req, res, "/friendship.jsp");
     }

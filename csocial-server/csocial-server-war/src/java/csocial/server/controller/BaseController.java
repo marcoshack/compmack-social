@@ -4,6 +4,7 @@
  */
 package csocial.server.controller;
 
+import csocial.server.entity.User;
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -39,5 +40,11 @@ public abstract class BaseController extends HttpServlet {
         HttpSession session = req.getSession();
         ServletContext context = session.getServletContext();
         context.getRequestDispatcher(page).forward(req, res);
+    }
+
+    protected Long getUser(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        Long userID = (Long) session.getAttribute("user_id");
+        return userID;
     }
 }
