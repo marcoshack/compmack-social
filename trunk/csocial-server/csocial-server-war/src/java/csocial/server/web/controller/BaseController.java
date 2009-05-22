@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package csocial.server.controller;
+package csocial.server.web.controller;
 
-import csocial.server.entity.User;
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * @author mhack
  */
 public abstract class BaseController extends HttpServlet {
+    public static final String WEB_PAGES_PREFIX = "/pages";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
@@ -42,9 +42,13 @@ public abstract class BaseController extends HttpServlet {
         context.getRequestDispatcher(page).forward(req, res);
     }
 
-    protected Long getUser(HttpServletRequest req) {
+    protected Long getUserID(HttpServletRequest req) {
         HttpSession session = req.getSession();
         Long userID = (Long) session.getAttribute("user_id");
         return userID;
+    }
+
+    public static String getResourcePath(String page) {
+        return WEB_PAGES_PREFIX + "/" + page;
     }
 }

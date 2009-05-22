@@ -7,8 +7,7 @@
 <div id="menu" style="background-color:#eeeeee;">
     <table id="table_menu" style="width:100%;">
         <tr>
-        <td style="font-weight:bold; font-size:14px; width:70px">
-        CSocial
+        <td><a class="logo" href="<%= session.getAttribute("app_path") %>">CSocial</a></td>
         <td style="font-weight:bold;text-align:right">
         <a href="?a=register">Create Account</a>
     </table>

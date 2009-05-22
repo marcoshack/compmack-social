@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package csocial.server.controller;
+package csocial.server.web.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ public class PhotoController extends BaseController {
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
-        dispatch(req, res, "/photo.jsp");
+        dispatch(req, res, getResourcePath("photo.jsp"));
     }
 
 
