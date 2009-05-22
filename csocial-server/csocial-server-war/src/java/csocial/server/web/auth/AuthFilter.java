@@ -1,7 +1,8 @@
-package csocial.server.auth;
+package csocial.server.web.auth;
 
 import csocial.server.entity.User;
 import csocial.server.service.UserManager;
+import csocial.server.web.controller.BaseController;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.Filter;
@@ -43,6 +44,8 @@ public class AuthFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
+        setSessionEnvironment(req);
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -69,7 +72,7 @@ public class AuthFilter implements Filter {
 
         } else {
             // Nao autenticou, retorna a tela de login
-            dispatch(req, res, "/login.jsp");
+            dispatch(req, res, BaseController.getResourcePath("login.jsp"));
         }
     }
 
@@ -117,5 +120,21 @@ public class AuthFilter implements Filter {
 
     public void log(String msg, Throwable t) {
         filterConfig.getServletContext().log(msg, t);
+    }
+
+    /**
+     * Configura parametros de ambiente dentro da sessao.
+     * 
+     * @param req
+     */
+    private void setSessionEnvironment(ServletRequest req) {
+        HttpSession session = ((HttpServletRequest) req).getSession();
+        ServletContext context = session.getServletContext();
+
+        // Caminho absoluto da aplicacao dentro do servidor.
+        String contextName = context.getServletContextName();
+        String contextPath = context.getContextPath();
+        String appPath = contextName + contextPath;
+        session.setAttribute("app_path", appPath);
     }
 }

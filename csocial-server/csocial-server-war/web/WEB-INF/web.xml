@@ -2,93 +2,93 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <filter>
         <filter-name>AuthFilter</filter-name>
-        <filter-class>csocial.server.auth.AuthFilter</filter-class>
+        <filter-class>csocial.server.web.auth.AuthFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/web/*</url-pattern>
     </filter-mapping>
 
     <servlet>
         <servlet-name>AppController</servlet-name>
-        <servlet-class>csocial.server.controller.AppController</servlet-class>
+        <servlet-class>csocial.server.web.controller.AppController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FriendshipController</servlet-name>
-        <servlet-class>csocial.server.controller.FriendshipController</servlet-class>
+        <servlet-class>csocial.server.web.controller.FriendshipController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
-        <servlet-class>csocial.server.controller.HomeController</servlet-class>
+        <servlet-class>csocial.server.web.controller.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>csocial.server.controller.LoginController</servlet-class>
+        <servlet-class>csocial.server.web.controller.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
-        <servlet-class>csocial.server.controller.LogoutController</servlet-class>
+        <servlet-class>csocial.server.web.controller.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MessageController</servlet-name>
-        <servlet-class>csocial.server.controller.MessageController</servlet-class>
+        <servlet-class>csocial.server.web.controller.MessageController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PhotoController</servlet-name>
-        <servlet-class>csocial.server.controller.PhotoController</servlet-class>
+        <servlet-class>csocial.server.web.controller.PhotoController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
-        <servlet-class>csocial.server.controller.ProfileController</servlet-class>
+        <servlet-class>csocial.server.web.controller.ProfileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>csocial.server.controller.RegisterController</servlet-class>
+        <servlet-class>csocial.server.web.controller.RegisterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VideoController</servlet-name>
-        <servlet-class>csocial.server.controller.VideoController</servlet-class>
+        <servlet-class>csocial.server.web.controller.VideoController</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>AppController</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/web/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FriendshipController</servlet-name>
-        <url-pattern>/friendship</url-pattern>
+        <url-pattern>/web/friendship</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <url-pattern>/web/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/web/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/web/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MessageController</servlet-name>
-        <url-pattern>/message</url-pattern>
+        <url-pattern>/web/message</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PhotoController</servlet-name>
-        <url-pattern>/photo</url-pattern>
+        <url-pattern>/web/photo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProfileController</servlet-name>
-        <url-pattern>/profile</url-pattern>
+        <url-pattern>/web/profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
-        <url-pattern>/register</url-pattern>
+        <url-pattern>/web/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VideoController</servlet-name>
-        <url-pattern>/video</url-pattern>
+        <url-pattern>/web/video</url-pattern>
     </servlet-mapping>
 
     <session-config>

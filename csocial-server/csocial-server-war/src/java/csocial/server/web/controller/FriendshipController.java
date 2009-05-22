@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package csocial.server.controller;
+package csocial.server.web.controller;
 
 import csocial.server.entity.User;
 import csocial.server.service.FriendshipManager;
@@ -29,13 +29,13 @@ public class FriendshipController extends BaseController {
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
-        Long userID = getUser(req);
+        Long userID = getUserID(req);
         User user = userManagerBean.findById(userID);
         List<User> friends = friendshipManagerBean.getFriendList(user);
 
         req.setAttribute("friend_list", friends);
 
-        dispatch(req, res, "/friendship.jsp");
+        dispatch(req, res, getResourcePath("friendship.jsp"));
     }
 
 

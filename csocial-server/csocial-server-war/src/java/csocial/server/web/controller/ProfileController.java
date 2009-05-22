@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package csocial.server.controller;
+package csocial.server.web.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mhack
  */
-public class MessageController extends BaseController {
+public class ProfileController extends BaseController {
    
     @Override
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
-        dispatch(req, res, "/message.jsp");
+        dispatch(req, res, getResourcePath("profile.jsp"));
     }
 
 

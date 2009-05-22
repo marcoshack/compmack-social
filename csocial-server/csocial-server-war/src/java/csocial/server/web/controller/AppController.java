@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package csocial.server.controller;
+package csocial.server.web.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -20,36 +20,39 @@ public class AppController extends BaseController {
             HttpServletResponse res) throws ServletException, IOException {
 
         String action = (String) req.getParameter("a");
-        dispatch(req, res, getPage(action));
+        String url = getControllerURL(action);
+        log("Dispatching request action \"" + action + "\" to controller URL \""
+                + url);
+        dispatch(req, res, url);
     }
 
-    protected String getPage(String action) {
+    protected String getControllerURL(String action) {
         if (action == null) {
-            return "/home";
+            return "/web/home";
 
         } else if (action.equals("register")) {
-            return "/register";
+            return "/web/register";
 
         } else if (action.equals("messages")) {
-            return "/message";
+            return "/web/message";
 
         } else if (action.equals("friends")) {
-            return "/friendship";
+            return "/web/friendship";
 
         } else if (action.equals("photos")) {
-            return "/photo";
+            return "/web/photo";
 
         } else if (action.equals("videos")) {
-            return "/video";
+            return "/web/video";
 
         } else if (action.equals("profile")) {
-            return "/profile";
+            return "/web/profile";
 
         } else if (action.equals("logout")) {
-            return "/logout";
+            return "/web/logout";
 
         } else {
-            return "/home";
+            return "/web/home";
         }
     }
 
