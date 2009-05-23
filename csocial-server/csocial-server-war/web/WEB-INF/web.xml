@@ -10,8 +10,8 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>AppController</servlet-name>
-        <servlet-class>csocial.server.web.controller.AppController</servlet-class>
+        <servlet-name>WebController</servlet-name>
+        <servlet-class>csocial.server.web.controller.WebController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FriendshipController</servlet-name>
@@ -51,7 +51,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AppController</servlet-name>
+        <servlet-name>WebController</servlet-name>
         <url-pattern>/web/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

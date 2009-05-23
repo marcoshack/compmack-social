@@ -18,16 +18,21 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class BaseController extends HttpServlet {
     public static final String WEB_PAGES_PREFIX = "/pages";
+    private HttpSession session;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        session = req.getSession();
+        setAttributes(req);
         processRequest(req, res);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        session = req.getSession();
+        setAttributes(req);
         processRequest(req, res);
     }
 
@@ -37,18 +42,24 @@ public abstract class BaseController extends HttpServlet {
     protected void dispatch(HttpServletRequest req, HttpServletResponse res,
             String page) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-        ServletContext context = session.getServletContext();
+        ServletContext context = getSession().getServletContext();
         context.getRequestDispatcher(page).forward(req, res);
     }
 
+    public HttpSession getSession() {
+        return session;
+    }
+
     protected Long getUserID(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        Long userID = (Long) session.getAttribute("user_id");
+        Long userID = (Long) getSession().getAttribute("user_id");
         return userID;
     }
 
     public static String getResourcePath(String page) {
         return WEB_PAGES_PREFIX + "/" + page;
+    }
+
+    protected void setAttributes(HttpServletRequest req) {
+        
     }
 }

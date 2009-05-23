@@ -27,10 +27,11 @@ public class LogoutController extends BaseController {
         throws ServletException, IOException
     {
         HttpSession session = req.getSession();
-        session.invalidate();
+        session.removeAttribute("user_id");
+        session.removeAttribute("username");
         dispatch(req, res, getResourcePath("login.jsp"));
     }
-
+    
     @Override
     public String getServletInfo() {
         return "Login Controller";
