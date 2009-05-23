@@ -49,6 +49,10 @@
         <servlet-name>VideoController</servlet-name>
         <servlet-class>csocial.server.web.controller.VideoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FriendshipResourse</servlet-name>
+        <servlet-class>csocial.server.ws.resource.FriendshipResource</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>WebController</servlet-name>
@@ -90,7 +94,10 @@
         <servlet-name>VideoController</servlet-name>
         <url-pattern>/web/video</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>FriendshipResourse</servlet-name>
+        <url-pattern>/ws/friends</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
