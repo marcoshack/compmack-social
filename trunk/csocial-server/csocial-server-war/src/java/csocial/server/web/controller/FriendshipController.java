@@ -20,10 +20,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FriendshipController extends BaseController {
 
+    private static final String ATTR_SEARCH_FRIENDS = "search_friends";
+    private static final String ATTR_FRIEND_LIST = "friend_list";
+    private static final String ATTR_FRIEND_COUNT = "friend_count";
+    private static final String ATTR_BUTTON_SEARCH = "button_search";
     @EJB
     private UserManager userManagerBean;
     @EJB
     private FriendshipManager friendshipManagerBean;
+    private String search_friends;
 
     @Override
     protected void processRequest(HttpServletRequest req, HttpServletResponse res)
@@ -33,14 +38,26 @@ public class FriendshipController extends BaseController {
         User user = userManagerBean.findById(userID);
         List<User> friends = friendshipManagerBean.getFriendList(user);
 
-        req.setAttribute("friend_list", friends);
+        req.setAttribute(ATTR_FRIEND_LIST, friends);
+        req.setAttribute(ATTR_FRIEND_COUNT, friends.size());
 
         dispatch(req, res, getResourcePath("friendship.jsp"));
     }
 
-
     @Override
     public String getServletInfo() {
         return "Friendship Controller";
+    }
+
+    @Override
+    protected void setAttributes(HttpServletRequest req) {
+        if (req.getParameter(ATTR_BUTTON_SEARCH) != null) {
+            search_friends = req.getParameter(ATTR_SEARCH_FRIENDS);
+            req.setAttribute(ATTR_SEARCH_FRIENDS, search_friends);
+
+        } else {
+            req.setAttribute(ATTR_SEARCH_FRIENDS, "");
+        }
+
     }
 }

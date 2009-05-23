@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mhack
  */
-public class AppController extends BaseController {
+public class WebController extends BaseController {
 
     @Override
     protected void processRequest(HttpServletRequest req,
