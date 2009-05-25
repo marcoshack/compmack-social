@@ -19,7 +19,7 @@ import javax.xml.bind.JAXB;
  *
  * @author mhack
  */
-public class FriendshipResource extends BaseController {
+public class FriendshipResource extends BaseControllerME {
 
     @EJB
     private UserManager userManager;
