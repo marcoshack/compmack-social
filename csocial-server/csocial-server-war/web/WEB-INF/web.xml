@@ -54,6 +54,10 @@
         <servlet-class>csocial.server.ws.resource.FriendshipResource</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>LoginME</servlet-name>
+        <servlet-class>csocial.server.web.controller.LoginControllerME</servlet-class>
+        </servlet>
     <servlet-mapping>
         <servlet-name>WebController</servlet-name>
         <url-pattern>/web/*</url-pattern>
@@ -97,6 +101,10 @@
     <servlet-mapping>
         <servlet-name>FriendshipResourse</servlet-name>
         <url-pattern>/ws/friends</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginME</servlet-name>
+        <url-pattern>/ws/login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
