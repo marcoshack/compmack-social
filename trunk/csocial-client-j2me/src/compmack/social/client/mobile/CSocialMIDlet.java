@@ -32,16 +32,21 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     private Command exitCmdLoginScreen;
     private Command exitCommand2;
     private Command okCmdLocalizarAmigos;
-    private Command okCommand1;
     private Command backCommand3;
-    private Command backCmdLocalizarAmigos;
+    private Command okCommand1;
     private Command backCmdExibirAmigo;
+    private Command backCmdLocalizarAmigos;
+    private Command exitCmdMenuPrincipal;
     private Form formExibirRecado;
     private LoginScreen loginScreen;
     private Form formListarRecados;
     private List listMenuPrincipal;
-    private Form formLocalizarAmigos;
     private Form formExibirAmigo;
+    private Form formLocalizarAmigos;
+    private TextField tfNome;
+    private DateField dfNasc;
+    private TextField tfEmail;
+    private List listAmigos;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -140,31 +145,41 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
                 // write pre-action user code here
 //GEN-LINE:|7-commandAction|10|59-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|11|36-preAction
+            }//GEN-BEGIN:|7-commandAction|11|78-preAction
+        } else if (displayable == listAmigos) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|78-preAction
+                // write pre-action user code here
+                listAmigosAction();//GEN-LINE:|7-commandAction|12|78-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|13|36-preAction
         } else if (displayable == listMenuPrincipal) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|36-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|13|36-preAction
                 // write pre-action user code here
-                listMenuPrincipalAction();//GEN-LINE:|7-commandAction|12|36-postAction
+                listMenuPrincipalAction();//GEN-LINE:|7-commandAction|14|36-postAction
                 // write post-action user code here
-            } else if (command == backCmdMenuPrincipal) {//GEN-LINE:|7-commandAction|13|43-preAction
+            } else if (command == backCmdMenuPrincipal) {//GEN-LINE:|7-commandAction|15|43-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|14|43-postAction
+                switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|16|43-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|15|24-preAction
+            } else if (command == exitCmdMenuPrincipal) {//GEN-LINE:|7-commandAction|17|75-preAction
+                // write pre-action user code here
+//GEN-LINE:|7-commandAction|18|75-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|19|24-preAction
         } else if (displayable == loginScreen) {
-            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|15|24-preAction
+            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|19|24-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|16|24-postAction
+                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|20|24-postAction
                 // write post-action user code here
-            } else if (command == exitCmdLoginScreen) {//GEN-LINE:|7-commandAction|17|52-preAction
+            } else if (command == exitCmdLoginScreen) {//GEN-LINE:|7-commandAction|21|52-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|18|52-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|22|52-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|19|7-postCommandAction
-        }//GEN-END:|7-commandAction|19|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|23|7-postCommandAction
+        }//GEN-END:|7-commandAction|23|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|20|
-    //</editor-fold>//GEN-END:|7-commandAction|20|
+    }//GEN-BEGIN:|7-commandAction|24|
+    //</editor-fold>//GEN-END:|7-commandAction|24|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -300,6 +315,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
             listMenuPrincipal.append("Ver v\u00EDdeos", null);
             listMenuPrincipal.append("Ver fotos", null);
             listMenuPrincipal.addCommand(getBackCmdMenuPrincipal());
+            listMenuPrincipal.addCommand(getExitCmdMenuPrincipal());
             listMenuPrincipal.setCommandListener(this);
             listMenuPrincipal.setSelectedFlags(new boolean[] { false, false, false, false });//GEN-END:|34-getter|1|34-postInit
             // write post-init user code here
@@ -436,7 +452,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     public Form getFormLocalizarAmigos() {
         if (formLocalizarAmigos == null) {//GEN-END:|56-getter|0|56-preInit
             // write pre-init user code here
-            formLocalizarAmigos = new Form("Localizar Amigos");//GEN-BEGIN:|56-getter|1|56-postInit
+            formLocalizarAmigos = new Form("Localizar Amigos", new Item[] { getTfNome(), getTfEmail(), getDfNasc() });//GEN-BEGIN:|56-getter|1|56-postInit
             formLocalizarAmigos.addCommand(getOkCmdLocalizarAmigos());
             formLocalizarAmigos.addCommand(getBackCmdLocalizarAmigos());
             formLocalizarAmigos.setCommandListener(this);//GEN-END:|56-getter|1|56-postInit
@@ -477,6 +493,100 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         return backCmdExibirAmigo;
     }
     //</editor-fold>//GEN-END:|70-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCmdMenuPrincipal ">//GEN-BEGIN:|74-getter|0|74-preInit
+    /**
+     * Returns an initiliazed instance of exitCmdMenuPrincipal component.
+     * @return the initialized component instance
+     */
+    public Command getExitCmdMenuPrincipal() {
+        if (exitCmdMenuPrincipal == null) {//GEN-END:|74-getter|0|74-preInit
+            // write pre-init user code here
+            exitCmdMenuPrincipal = new Command("Sair", Command.EXIT, 0);//GEN-LINE:|74-getter|1|74-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|74-getter|2|
+        return exitCmdMenuPrincipal;
+    }
+    //</editor-fold>//GEN-END:|74-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: listAmigos ">//GEN-BEGIN:|77-getter|0|77-preInit
+    /**
+     * Returns an initiliazed instance of listAmigos component.
+     * @return the initialized component instance
+     */
+    public List getListAmigos() {
+        if (listAmigos == null) {//GEN-END:|77-getter|0|77-preInit
+            // write pre-init user code here
+            listAmigos = new List("Lista Amigos", Choice.IMPLICIT);//GEN-BEGIN:|77-getter|1|77-postInit
+            listAmigos.setCommandListener(this);//GEN-END:|77-getter|1|77-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|77-getter|2|
+        return listAmigos;
+    }
+    //</editor-fold>//GEN-END:|77-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: listAmigosAction ">//GEN-BEGIN:|77-action|0|77-preAction
+    /**
+     * Performs an action assigned to the selected list element in the listAmigos component.
+     */
+    public void listAmigosAction() {//GEN-END:|77-action|0|77-preAction
+        // enter pre-action user code here
+
+
+        String __selectedString = getListAmigos().getString(getListAmigos().getSelectedIndex());//GEN-LINE:|77-action|1|77-postAction
+        // enter post-action user code here
+
+
+    }//GEN-BEGIN:|77-action|2|
+    //</editor-fold>//GEN-END:|77-action|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: tfNome ">//GEN-BEGIN:|81-getter|0|81-preInit
+    /**
+     * Returns an initiliazed instance of tfNome component.
+     * @return the initialized component instance
+     */
+    public TextField getTfNome() {
+        if (tfNome == null) {//GEN-END:|81-getter|0|81-preInit
+            // write pre-init user code here
+            tfNome = new TextField("Nome", null, 32, TextField.ANY);//GEN-LINE:|81-getter|1|81-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|81-getter|2|
+        return tfNome;
+    }
+    //</editor-fold>//GEN-END:|81-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: dfNasc ">//GEN-BEGIN:|82-getter|0|82-preInit
+    /**
+     * Returns an initiliazed instance of dfNasc component.
+     * @return the initialized component instance
+     */
+    public DateField getDfNasc() {
+        if (dfNasc == null) {//GEN-END:|82-getter|0|82-preInit
+            // write pre-init user code here
+            dfNasc = new DateField("Data de Nascimento", DateField.DATE);//GEN-BEGIN:|82-getter|1|82-postInit
+            dfNasc.setDate(new java.util.Date(System.currentTimeMillis()));//GEN-END:|82-getter|1|82-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|82-getter|2|
+        return dfNasc;
+    }
+    //</editor-fold>//GEN-END:|82-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: tfEmail ">//GEN-BEGIN:|83-getter|0|83-preInit
+    /**
+     * Returns an initiliazed instance of tfEmail component.
+     * @return the initialized component instance
+     */
+    public TextField getTfEmail() {
+        if (tfEmail == null) {//GEN-END:|83-getter|0|83-preInit
+            // write pre-init user code here
+            tfEmail = new TextField("E-mail", null, 32, TextField.ANY);//GEN-LINE:|83-getter|1|83-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|83-getter|2|
+        return tfEmail;
+    }
+    //</editor-fold>//GEN-END:|83-getter|2|
+
+
 
     /**
      * Returns a display instance.

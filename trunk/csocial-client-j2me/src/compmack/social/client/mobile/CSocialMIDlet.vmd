@@ -71,13 +71,18 @@
                     <Property name="label" typeID="Pjava.lang.String" value="VOk"/>
                     <Property name="type" typeID="Pint" value="V4"/>
                 </Component>
+                <Component componentID="62" typeID="Cjavax.microedition.lcdui.Command">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="VbackCommand3"/>
+                    <Property name="label" typeID="Pjava.lang.String" value="VVoltar"/>
+                    <Property name="type" typeID="Pint" value="V2"/>
+                </Component>
                 <Component componentID="60" typeID="Cjavax.microedition.lcdui.Command">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VokCommand1"/>
                     <Property name="label" typeID="Pjava.lang.String" value="VOk"/>
                     <Property name="type" typeID="Pint" value="V4"/>
                 </Component>
-                <Component componentID="62" typeID="Cjavax.microedition.lcdui.Command">
-                    <Property name="instanceName" typeID="Pjava.lang.String" value="VbackCommand3"/>
+                <Component componentID="70" typeID="Cjavax.microedition.lcdui.Command">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="VbackCmdExibirAmigo"/>
                     <Property name="label" typeID="Pjava.lang.String" value="VVoltar"/>
                     <Property name="type" typeID="Pint" value="V2"/>
                 </Component>
@@ -86,10 +91,10 @@
                     <Property name="label" typeID="Pjava.lang.String" value="VVoltar"/>
                     <Property name="type" typeID="Pint" value="V2"/>
                 </Component>
-                <Component componentID="70" typeID="Cjavax.microedition.lcdui.Command">
-                    <Property name="instanceName" typeID="Pjava.lang.String" value="VbackCmdExibirAmigo"/>
-                    <Property name="label" typeID="Pjava.lang.String" value="VVoltar"/>
-                    <Property name="type" typeID="Pint" value="V2"/>
+                <Component componentID="74" typeID="Cjavax.microedition.lcdui.Command">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="VexitCmdMenuPrincipal"/>
+                    <Property name="label" typeID="Pjava.lang.String" value="VSair"/>
+                    <Property name="type" typeID="Pint" value="V7"/>
                 </Component>
             </Component>
             <Component componentID="10" typeID="C#DisplayablesCategory">
@@ -156,7 +161,7 @@
                 </Component>
                 <Component componentID="34" typeID="Cjavax.microedition.lcdui.List">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VlistMenuPrincipal"/>
-                    <Property name="commands" typeID="1C#CommandEventSource" value="A2:3_R363_R43"/>
+                    <Property name="commands" typeID="1C#CommandEventSource" value="A3:3_R363_R433_R75"/>
                     <Property name="title" typeID="Pjava.lang.String" value="VMenu Principal"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A4:3_R383_R393_R403_R41"/>
@@ -200,24 +205,9 @@
                     <Component componentID="41" typeID="C#ListElementEventSource">
                         <Property name="string" typeID="Pjava.lang.String" value="VVer fotos"/>
                     </Component>
-                </Component>
-                <Component componentID="56" typeID="Cjavax.microedition.lcdui.Form">
-                    <Property name="instanceName" typeID="Pjava.lang.String" value="VformLocalizarAmigos"/>
-                    <Property name="commands" typeID="1C#CommandEventSource" value="A2:3_R593_R65"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VLocalizar Amigos"/>
-                    <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
-                    <Component componentID="59" typeID="C#CommandEventSource">
-                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R56"/>
-                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R58"/>
-                    </Component>
-                    <Component componentID="65" typeID="C#CommandEventSource">
-                        <Property name="eventHandler" typeID="C#EventHandler" value="R67"/>
-                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R56"/>
-                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R64"/>
-                        <Component componentID="67" typeID="C#SwitchDisplayableEventHandler">
-                            <Property name="eventSource" typeID="C#EventSource" value="R65"/>
-                            <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R34"/>
-                        </Component>
+                    <Component componentID="75" typeID="C#CommandEventSource">
+                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R34"/>
+                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R74"/>
                     </Component>
                 </Component>
                 <Component componentID="57" typeID="Cjavax.microedition.lcdui.Form">
@@ -235,18 +225,75 @@
                         </Component>
                     </Component>
                 </Component>
+                <Component componentID="56" typeID="Cjavax.microedition.lcdui.Form">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="VformLocalizarAmigos"/>
+                    <Property name="commands" typeID="1C#CommandEventSource" value="A2:3_R593_R65"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VLocalizar Amigos"/>
+                    <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
+                    <Property name="items" typeID="1Cjavax.microedition.lcdui.Item" value="A3:3_R813_R833_R82"/>
+                    <Component componentID="59" typeID="C#CommandEventSource">
+                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R56"/>
+                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R58"/>
+                    </Component>
+                    <Component componentID="65" typeID="C#CommandEventSource">
+                        <Property name="eventHandler" typeID="C#EventHandler" value="R67"/>
+                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R56"/>
+                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R64"/>
+                        <Component componentID="67" typeID="C#SwitchDisplayableEventHandler">
+                            <Property name="eventSource" typeID="C#EventSource" value="R65"/>
+                            <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R34"/>
+                        </Component>
+                    </Component>
+                    <Component componentID="81" typeID="Cjavax.microedition.lcdui.TextField">
+                        <Property name="instanceName" typeID="Pjava.lang.String" value="VtfNome"/>
+                        <Property name="label" typeID="Pjava.lang.String" value="VNome"/>
+                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
+                        <Property name="maxSize" typeID="Pint" value="V32"/>
+                        <Property name="constraints" typeID="Pint" value="V0"/>
+                    </Component>
+                    <Component componentID="82" typeID="Cjavax.microedition.lcdui.DateField">
+                        <Property name="instanceName" typeID="Pjava.lang.String" value="VdfNasc"/>
+                        <Property name="label" typeID="Pjava.lang.String" value="VData de Nascimento"/>
+                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
+                        <Property name="date" typeID="Plong" value="Unew java.util.Date (System.currentTimeMillis ())"/>
+                        <Property name="inputMode" typeID="Pint" value="V1"/>
+                    </Component>
+                    <Component componentID="83" typeID="Cjavax.microedition.lcdui.TextField">
+                        <Property name="instanceName" typeID="Pjava.lang.String" value="VtfEmail"/>
+                        <Property name="label" typeID="Pjava.lang.String" value="VE-mail"/>
+                        <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
+                        <Property name="maxSize" typeID="Pint" value="V32"/>
+                        <Property name="constraints" typeID="Pint" value="V0"/>
+                    </Component>
+                </Component>
+                <Component componentID="77" typeID="Cjavax.microedition.lcdui.List">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="VlistAmigos"/>
+                    <Property name="commands" typeID="1C#CommandEventSource" value="A1:3_R78"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VLista Amigos"/>
+                    <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
+                    <Property name="selectCommand" typeID="C#CommandEventSource" value="R78"/>
+                    <Component componentID="78" typeID="C#ListSelectCommandEventSource">
+                        <Property name="eventHandler" typeID="C#EventHandler" value="R79"/>
+                        <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R77"/>
+                        <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R35"/>
+                        <Component componentID="79" typeID="C#ListEventHandler">
+                            <Property name="eventSource" typeID="C#EventSource" value="R78"/>
+                        </Component>
+                    </Component>
+                </Component>
             </Component>
             <Component componentID="13" typeID="C#ResourcesCategory"/>
             <Component componentID="21" typeID="C#DatabindingCategory"/>
         </Component>
     </Document>
     <FlowScene version="1">
+        <Node componentID="77" descriptorID="componentNode77" x="589" y="140"/>
         <Node componentID="57" descriptorID="componentNode57" x="586" y="406"/>
-        <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
-        <Node componentID="56" descriptorID="componentNode56" x="614" y="210"/>
         <Node componentID="25" descriptorID="componentNode25" x="33" y="246"/>
-        <Node componentID="22" descriptorID="componentNode22" x="335" y="85"/>
-        <Node componentID="34" descriptorID="componentNode34" x="336" y="230"/>
+        <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
+        <Node componentID="56" descriptorID="componentNode56" x="587" y="199"/>
         <Node componentID="14" descriptorID="componentNode14" x="32" y="396"/>
+        <Node componentID="34" descriptorID="componentNode34" x="336" y="230"/>
+        <Node componentID="22" descriptorID="componentNode22" x="335" y="85"/>
     </FlowScene>
 </VisualDesign>
