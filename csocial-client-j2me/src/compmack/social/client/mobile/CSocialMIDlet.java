@@ -26,15 +26,22 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
-    private Command backCommand;
-    private Command backCommand1;
-    private Command backCommand2;
-    private Command exitCommand1;
+    private Command backCmdExibirRecado;
+    private Command backCmdMenuPrincipal;
+    private Command backCmdListarRecados;
+    private Command exitCmdLoginScreen;
     private Command exitCommand2;
+    private Command okCmdLocalizarAmigos;
+    private Command okCommand1;
+    private Command backCommand3;
+    private Command backCmdLocalizarAmigos;
+    private Command backCmdExibirAmigo;
     private Form formExibirRecado;
     private LoginScreen loginScreen;
     private Form formListarRecados;
     private List listMenuPrincipal;
+    private Form formLocalizarAmigos;
+    private Form formExibirAmigo;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -106,42 +113,58 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == formExibirRecado) {//GEN-BEGIN:|7-commandAction|1|27-preAction
-            if (command == backCommand) {//GEN-END:|7-commandAction|1|27-preAction
+        if (displayable == formExibirAmigo) {//GEN-BEGIN:|7-commandAction|1|71-preAction
+            if (command == backCmdExibirAmigo) {//GEN-END:|7-commandAction|1|71-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getFormListarRecados());//GEN-LINE:|7-commandAction|2|27-postAction
+                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|2|71-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|48-preAction
+            }//GEN-BEGIN:|7-commandAction|3|27-preAction
+        } else if (displayable == formExibirRecado) {
+            if (command == backCmdExibirRecado) {//GEN-END:|7-commandAction|3|27-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|4|27-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|48-preAction
         } else if (displayable == formListarRecados) {
-            if (command == backCommand2) {//GEN-END:|7-commandAction|3|48-preAction
+            if (command == backCmdListarRecados) {//GEN-END:|7-commandAction|5|48-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|4|48-postAction
+                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|6|48-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|36-preAction
+            }//GEN-BEGIN:|7-commandAction|7|65-preAction
+        } else if (displayable == formLocalizarAmigos) {
+            if (command == backCmdLocalizarAmigos) {//GEN-END:|7-commandAction|7|65-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|8|65-postAction
+                // write post-action user code here
+            } else if (command == okCmdLocalizarAmigos) {//GEN-LINE:|7-commandAction|9|59-preAction
+                // write pre-action user code here
+//GEN-LINE:|7-commandAction|10|59-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|11|36-preAction
         } else if (displayable == listMenuPrincipal) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|36-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|36-preAction
                 // write pre-action user code here
-                listMenuPrincipalAction();//GEN-LINE:|7-commandAction|6|36-postAction
+                listMenuPrincipalAction();//GEN-LINE:|7-commandAction|12|36-postAction
                 // write post-action user code here
-            } else if (command == backCommand1) {//GEN-LINE:|7-commandAction|7|43-preAction
+            } else if (command == backCmdMenuPrincipal) {//GEN-LINE:|7-commandAction|13|43-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|8|43-postAction
+                switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|14|43-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|9|24-preAction
+            }//GEN-BEGIN:|7-commandAction|15|24-preAction
         } else if (displayable == loginScreen) {
-            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|9|24-preAction
+            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|15|24-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|10|24-postAction
+                switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|16|24-postAction
                 // write post-action user code here
-            } else if (command == exitCommand1) {//GEN-LINE:|7-commandAction|11|52-preAction
+            } else if (command == exitCmdLoginScreen) {//GEN-LINE:|7-commandAction|17|52-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|12|52-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|18|52-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|13|7-postCommandAction
-        }//GEN-END:|7-commandAction|13|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|19|7-postCommandAction
+        }//GEN-END:|7-commandAction|19|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|14|
-    //</editor-fold>//GEN-END:|7-commandAction|14|
+    }//GEN-BEGIN:|7-commandAction|20|
+    //</editor-fold>//GEN-END:|7-commandAction|20|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -167,7 +190,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         if (formExibirRecado == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
             formExibirRecado = new Form("Recado", new Item[] { });//GEN-BEGIN:|14-getter|1|14-postInit
-            formExibirRecado.addCommand(getBackCommand());
+            formExibirRecado.addCommand(getBackCmdExibirRecado());
             formExibirRecado.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
@@ -177,18 +200,18 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
 
 
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand ">//GEN-BEGIN:|26-getter|0|26-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCmdExibirRecado ">//GEN-BEGIN:|26-getter|0|26-preInit
     /**
-     * Returns an initiliazed instance of backCommand component.
+     * Returns an initiliazed instance of backCmdExibirRecado component.
      * @return the initialized component instance
      */
-    public Command getBackCommand() {
-        if (backCommand == null) {//GEN-END:|26-getter|0|26-preInit
+    public Command getBackCmdExibirRecado() {
+        if (backCmdExibirRecado == null) {//GEN-END:|26-getter|0|26-preInit
             // write pre-init user code here
-            backCommand = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|26-getter|1|26-postInit
+            backCmdExibirRecado = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|26-getter|1|26-postInit
             // write post-init user code here
         }//GEN-BEGIN:|26-getter|2|
-        return backCommand;
+        return backCmdExibirRecado;
     }
     //</editor-fold>//GEN-END:|26-getter|2|
 
@@ -204,7 +227,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
             loginScreen.setLabelTexts("Nome de usu\u00E1rio", "Senha");
             loginScreen.setTitle("Bem vindo ao CSocial");
             loginScreen.addCommand(LoginScreen.LOGIN_COMMAND);
-            loginScreen.addCommand(getExitCommand1());
+            loginScreen.addCommand(getExitCmdLoginScreen());
             loginScreen.setCommandListener(this);
             loginScreen.setBGColor(-3355444);
             loginScreen.setFGColor(0);
@@ -225,7 +248,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         if (formListarRecados == null) {//GEN-END:|25-getter|0|25-preInit
             // write pre-init user code here
             formListarRecados = new Form("Recados");//GEN-BEGIN:|25-getter|1|25-postInit
-            formListarRecados.addCommand(getBackCommand2());
+            formListarRecados.addCommand(getBackCmdListarRecados());
             formListarRecados.setCommandListener(this);//GEN-END:|25-getter|1|25-postInit
             // write post-init user code here
         }//GEN-BEGIN:|25-getter|2|
@@ -233,33 +256,33 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|25-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand1 ">//GEN-BEGIN:|42-getter|0|42-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCmdMenuPrincipal ">//GEN-BEGIN:|42-getter|0|42-preInit
     /**
-     * Returns an initiliazed instance of backCommand1 component.
+     * Returns an initiliazed instance of backCmdMenuPrincipal component.
      * @return the initialized component instance
      */
-    public Command getBackCommand1() {
-        if (backCommand1 == null) {//GEN-END:|42-getter|0|42-preInit
+    public Command getBackCmdMenuPrincipal() {
+        if (backCmdMenuPrincipal == null) {//GEN-END:|42-getter|0|42-preInit
             // write pre-init user code here
-            backCommand1 = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|42-getter|1|42-postInit
+            backCmdMenuPrincipal = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|42-getter|1|42-postInit
             // write post-init user code here
         }//GEN-BEGIN:|42-getter|2|
-        return backCommand1;
+        return backCmdMenuPrincipal;
     }
     //</editor-fold>//GEN-END:|42-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand2 ">//GEN-BEGIN:|47-getter|0|47-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCmdListarRecados ">//GEN-BEGIN:|47-getter|0|47-preInit
     /**
-     * Returns an initiliazed instance of backCommand2 component.
+     * Returns an initiliazed instance of backCmdListarRecados component.
      * @return the initialized component instance
      */
-    public Command getBackCommand2() {
-        if (backCommand2 == null) {//GEN-END:|47-getter|0|47-preInit
+    public Command getBackCmdListarRecados() {
+        if (backCmdListarRecados == null) {//GEN-END:|47-getter|0|47-preInit
             // write pre-init user code here
-            backCommand2 = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|47-getter|1|47-postInit
+            backCmdListarRecados = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|47-getter|1|47-postInit
             // write post-init user code here
         }//GEN-BEGIN:|47-getter|2|
-        return backCommand2;
+        return backCmdListarRecados;
     }
     //</editor-fold>//GEN-END:|47-getter|2|
 
@@ -276,7 +299,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
             listMenuPrincipal.append("Localizar amigo", null);
             listMenuPrincipal.append("Ver v\u00EDdeos", null);
             listMenuPrincipal.append("Ver fotos", null);
-            listMenuPrincipal.addCommand(getBackCommand1());
+            listMenuPrincipal.addCommand(getBackCmdMenuPrincipal());
             listMenuPrincipal.setCommandListener(this);
             listMenuPrincipal.setSelectedFlags(new boolean[] { false, false, false, false });//GEN-END:|34-getter|1|34-postInit
             // write post-init user code here
@@ -299,7 +322,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
                 // write post-action user code here
             } else if (__selectedString.equals("Localizar amigo")) {//GEN-LINE:|34-action|3|39-preAction
                 // write pre-action user code here
-//GEN-LINE:|34-action|4|39-postAction
+                switchDisplayable(null, getFormLocalizarAmigos());//GEN-LINE:|34-action|4|39-postAction
                 // write post-action user code here
             } else if (__selectedString.equals("Ver v\u00EDdeos")) {//GEN-LINE:|34-action|5|40-preAction
                 // write pre-action user code here
@@ -315,18 +338,18 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     }//GEN-BEGIN:|34-action|10|
     //</editor-fold>//GEN-END:|34-action|10|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand1 ">//GEN-BEGIN:|51-getter|0|51-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCmdLoginScreen ">//GEN-BEGIN:|51-getter|0|51-preInit
     /**
-     * Returns an initiliazed instance of exitCommand1 component.
+     * Returns an initiliazed instance of exitCmdLoginScreen component.
      * @return the initialized component instance
      */
-    public Command getExitCommand1() {
-        if (exitCommand1 == null) {//GEN-END:|51-getter|0|51-preInit
+    public Command getExitCmdLoginScreen() {
+        if (exitCmdLoginScreen == null) {//GEN-END:|51-getter|0|51-preInit
             // write pre-init user code here
-            exitCommand1 = new Command("Sair", Command.EXIT, 0);//GEN-LINE:|51-getter|1|51-postInit
+            exitCmdLoginScreen = new Command("Sair", Command.EXIT, 0);//GEN-LINE:|51-getter|1|51-postInit
             // write post-init user code here
         }//GEN-BEGIN:|51-getter|2|
-        return exitCommand1;
+        return exitCmdLoginScreen;
     }
     //</editor-fold>//GEN-END:|51-getter|2|
 
@@ -344,6 +367,116 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         return exitCommand2;
     }
     //</editor-fold>//GEN-END:|53-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCmdLocalizarAmigos ">//GEN-BEGIN:|58-getter|0|58-preInit
+    /**
+     * Returns an initiliazed instance of okCmdLocalizarAmigos component.
+     * @return the initialized component instance
+     */
+    public Command getOkCmdLocalizarAmigos() {
+        if (okCmdLocalizarAmigos == null) {//GEN-END:|58-getter|0|58-preInit
+            // write pre-init user code here
+            okCmdLocalizarAmigos = new Command("Ok", Command.OK, 0);//GEN-LINE:|58-getter|1|58-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|58-getter|2|
+        return okCmdLocalizarAmigos;
+    }
+    //</editor-fold>//GEN-END:|58-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand1 ">//GEN-BEGIN:|60-getter|0|60-preInit
+    /**
+     * Returns an initiliazed instance of okCommand1 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand1() {
+        if (okCommand1 == null) {//GEN-END:|60-getter|0|60-preInit
+            // write pre-init user code here
+            okCommand1 = new Command("Ok", Command.OK, 0);//GEN-LINE:|60-getter|1|60-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|60-getter|2|
+        return okCommand1;
+    }
+    //</editor-fold>//GEN-END:|60-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand3 ">//GEN-BEGIN:|62-getter|0|62-preInit
+    /**
+     * Returns an initiliazed instance of backCommand3 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand3() {
+        if (backCommand3 == null) {//GEN-END:|62-getter|0|62-preInit
+            // write pre-init user code here
+            backCommand3 = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|62-getter|1|62-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|62-getter|2|
+        return backCommand3;
+    }
+    //</editor-fold>//GEN-END:|62-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCmdLocalizarAmigos ">//GEN-BEGIN:|64-getter|0|64-preInit
+    /**
+     * Returns an initiliazed instance of backCmdLocalizarAmigos component.
+     * @return the initialized component instance
+     */
+    public Command getBackCmdLocalizarAmigos() {
+        if (backCmdLocalizarAmigos == null) {//GEN-END:|64-getter|0|64-preInit
+            // write pre-init user code here
+            backCmdLocalizarAmigos = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|64-getter|1|64-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|64-getter|2|
+        return backCmdLocalizarAmigos;
+    }
+    //</editor-fold>//GEN-END:|64-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: formLocalizarAmigos ">//GEN-BEGIN:|56-getter|0|56-preInit
+    /**
+     * Returns an initiliazed instance of formLocalizarAmigos component.
+     * @return the initialized component instance
+     */
+    public Form getFormLocalizarAmigos() {
+        if (formLocalizarAmigos == null) {//GEN-END:|56-getter|0|56-preInit
+            // write pre-init user code here
+            formLocalizarAmigos = new Form("Localizar Amigos");//GEN-BEGIN:|56-getter|1|56-postInit
+            formLocalizarAmigos.addCommand(getOkCmdLocalizarAmigos());
+            formLocalizarAmigos.addCommand(getBackCmdLocalizarAmigos());
+            formLocalizarAmigos.setCommandListener(this);//GEN-END:|56-getter|1|56-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|56-getter|2|
+        return formLocalizarAmigos;
+    }
+    //</editor-fold>//GEN-END:|56-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: formExibirAmigo ">//GEN-BEGIN:|57-getter|0|57-preInit
+    /**
+     * Returns an initiliazed instance of formExibirAmigo component.
+     * @return the initialized component instance
+     */
+    public Form getFormExibirAmigo() {
+        if (formExibirAmigo == null) {//GEN-END:|57-getter|0|57-preInit
+            // write pre-init user code here
+            formExibirAmigo = new Form("Exibir Amigo");//GEN-BEGIN:|57-getter|1|57-postInit
+            formExibirAmigo.addCommand(getBackCmdExibirAmigo());
+            formExibirAmigo.setCommandListener(this);//GEN-END:|57-getter|1|57-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|57-getter|2|
+        return formExibirAmigo;
+    }
+    //</editor-fold>//GEN-END:|57-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCmdExibirAmigo ">//GEN-BEGIN:|70-getter|0|70-preInit
+    /**
+     * Returns an initiliazed instance of backCmdExibirAmigo component.
+     * @return the initialized component instance
+     */
+    public Command getBackCmdExibirAmigo() {
+        if (backCmdExibirAmigo == null) {//GEN-END:|70-getter|0|70-preInit
+            // write pre-init user code here
+            backCmdExibirAmigo = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|70-getter|1|70-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|70-getter|2|
+        return backCmdExibirAmigo;
+    }
+    //</editor-fold>//GEN-END:|70-getter|2|
 
     /**
      * Returns a display instance.
