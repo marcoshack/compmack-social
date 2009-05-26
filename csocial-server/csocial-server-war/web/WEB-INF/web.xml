@@ -56,7 +56,11 @@
 
     <servlet>
         <servlet-name>LoginME</servlet-name>
-        <servlet-class>csocial.server.web.controller.LoginControllerME</servlet-class>
+        <servlet-class>csocial.server.ws.resource.LoginControllerME</servlet-class>
+        </servlet>
+    <servlet>
+        <servlet-name>MessageResource</servlet-name>
+        <servlet-class>csocial.server.ws.resource.MessageResource</servlet-class>
         </servlet>
     <servlet-mapping>
         <servlet-name>WebController</servlet-name>
@@ -105,6 +109,10 @@
     <servlet-mapping>
         <servlet-name>LoginME</servlet-name>
         <url-pattern>/ws/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MessageResource</servlet-name>
+        <url-pattern>/ws/message</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
