@@ -5,17 +5,252 @@
 
 package compmack.social.client.mobile;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import org.kxml2.io.KXmlParser;
 import org.netbeans.microedition.lcdui.LoginScreen;
-//import org.kxml.*;
-//import org.kxml.kdom.*;
-//import org.kxml.parser.*;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+class ExecutaSolicitacao implements Runnable
+{
+    final static int USUARIO = 1;
+    final static int LISTA_RECADOS = 2;
+    final static int RECADO = 3;
+
+    CSocialMIDlet midlet;
+    Displayable displayableSucesso;
+    Displayable displayableFalha;
+    String url;
+    String[] parametros;
+    String[] conteudos;
+    int tipoConteudo;
+
+    public ExecutaSolicitacao(CSocialMIDlet midlet, 
+            Displayable displayableSucesso,
+            Displayable displayableFalha,
+            String url,
+            int tipoConteudo,
+            String[] parametros,
+            String[] conteudos)
+    {
+        this.midlet = midlet;
+        this.displayableSucesso = displayableSucesso;
+        this.displayableFalha = displayableFalha;
+        this.url = url;
+        this.parametros = parametros;
+        this.conteudos = conteudos;
+        this.tipoConteudo = tipoConteudo;
+    }
+
+    public void run()
+    {
+        String urlChamada = "http://localhost:8080/csocial/ws/" + url;
+        //String urlChamada = "http://localhost:9999/csocial/ws/" + url;
+        boolean sucesso;
+
+        sucesso = executaChamada(urlChamada, tipoConteudo, parametros, conteudos);
+
+        // Se for sucesso ou falha escolhe o displayble correto...
+        midlet.switchDisplayable(null, 
+                sucesso ? displayableSucesso: displayableFalha);
+
+    }
+
+    private boolean executaChamada(String url, int tipoConteudo, String[] parametros, String[] conteudos)
+    {
+        XmlPullParser parser = new KXmlParser();
+        byte[] conteudo = null;
+        boolean sucesso = false;
+
+        try
+        {
+            conteudo = recuperaConteudo(url, parametros, conteudos);
+
+            parser.setInput(new InputStreamReader(new ByteArrayInputStream(conteudo)));
+
+            int valor;
+            String tag, resultado;
+
+            // Recupera a primeira tag (o nome do objeto)
+            valor = parser.nextTag();
+            // Recupera o sucesso/falha da chamada
+            valor = parser.nextTag();
+
+            tag = parser.getName();
+
+            if ( tag.equals("sucesso") )
+            {
+                resultado = parser.nextText();
+
+                if ( resultado.equals("true") )
+                    sucesso = true;
+            }
+
+            if ( sucesso )
+            {
+                switch(tipoConteudo)
+                {
+                    case USUARIO:
+                        midlet.setUsuario(recuperaUsuario(parser));
+                        break;
+                }
+            }
+        }
+        catch(IOException ioe)
+        {
+        }
+        catch(XmlPullParserException e)
+        {
+        }
+
+        return sucesso;
+    }
+
+    usuario recuperaUsuario(XmlPullParser parser) throws XmlPullParserException, IOException
+    {
+        usuario u = null;
+
+        parser.nextTag();
+
+        if ( parser.getName().equals("usuario") )
+        {
+            u = new usuario();
+
+            for (int i = 0 ; i < parser.getAttributeCount(); i++)
+            {
+                String nome = parser.getAttributeName(i),
+                        conteudo = parser.getAttributeValue(i);
+
+                if ( nome.equals("username") )
+                    u.username = conteudo;
+                else if ( nome.equals("realName") )
+                    u.realName = conteudo;
+                else if ( nome.equals("nickName") )
+                    u.nickName = conteudo;
+                else if ( nome.equals("id") )
+                    u.id = Integer.parseInt(conteudo);
+                else if ( nome.equals("email") )
+                    u.email = parser.getAttributeValue("email", null);
+            }
+        }
+
+        return u;
+    }
+
+    /**
+     * Executa a chamada http e devolve o array de bytes com o conteúdo
+     * @param url Url a recuperar
+     * @param parametros Parâmetros a serem enviados pela solicitação
+     * @return dados recebidos, ou null se houve algum erro
+     */
+    private byte[] recuperaConteudo(String url, String[] parametros, String[] conteudos)
+    {
+      HttpConnection connection = null;
+      InputStream inputstream = null;
+      byte[] retorno = null/*, dadosEnvio*/;
+      String solicitacao = "";
+
+      try
+      {
+          for(int i = 0 ; i < parametros.length; i++ )
+          {
+            solicitacao += parametros[i] + "=" + conteudos[i];
+
+            if ( i != parametros.length - 1 )
+                solicitacao += "&";
+          }
+
+          //dadosEnvio = solicitacao.getBytes();
+
+          url = url + "?" + solicitacao;
+        connection = (HttpConnection) Connector.open(url);
+
+        /*connection.setRequestMethod(HttpConnection.POST);
+        connection.setRequestProperty("Content-Length", "" + dadosEnvio.length);
+        connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+        connection.setRequestProperty("Connection", "close");
+        
+        OutputStream os = connection.openOutputStream();
+
+        os.write(dadosEnvio);
+        os.flush();
+        os.close();*/
+
+        if (connection.getResponseCode() == HttpConnection.HTTP_OK)
+        {
+          //System.out.println(
+          //  connection.getHeaderField(0)+ " " + connection.getHeaderFieldKey(0));
+          //System.out.println(
+          // "Header Field Date: " + connection.getHeaderField("date"));
+          //String str;
+          inputstream = connection.openInputStream();
+          int length = (int) connection.getLength();
+
+          if (length != -1)
+          {
+              // Neste caso sabemos exatamente quantos bytes voltam
+            //byte incomingData[] = new byte[length];
+              retorno = new byte[length];
+            inputstream.read(retorno);
+            //str = new String(incomingData);
+          }
+          else
+          {
+            ByteArrayOutputStream bytestream =
+                  new ByteArrayOutputStream();
+            int ch;
+            while ((ch = inputstream.read()) != -1)
+            {
+              bytestream.write(ch);
+            }
+            retorno = bytestream.toByteArray();
+            //str = new String(bytestream.toByteArray());
+            bytestream.close();
+          }
+          //System.out.println(str);
+        }
+      }
+      catch(IOException error)
+      {
+       return null;
+      }
+      finally
+      {
+        if (inputstream!= null)
+        {
+          try
+          {
+            inputstream.close();
+          }
+          catch( Exception error)
+          {
+             /*log error*/
+          }
+        }
+        if (connection != null)
+        {
+          try
+          {
+             connection.close();
+          }
+          catch( Exception error)
+          {
+             /*log error*/
+          }
+        }
+      }
+      return retorno;
+    }
+
+}
 
 /**
  * @author mhack
@@ -23,6 +258,12 @@ import org.netbeans.microedition.lcdui.LoginScreen;
 public class CSocialMIDlet extends MIDlet implements CommandListener {
 
     private boolean midletPaused = false;
+    usuario _usuario;
+
+    public void setUsuario(usuario u)
+    {
+        _usuario = u;
+    }
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
     private Command exitCommand;
@@ -31,6 +272,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     private Command backCmdListarRecados;
     private Command exitCmdLoginScreen;
     private Command exitCommand2;
+    private Command voltarErroLogin;
     private Command okCmdLocalizarAmigos;
     private Command backCommand3;
     private Command okCommand1;
@@ -41,6 +283,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     private LoginScreen loginScreen;
     private Form formListarRecados;
     private List listMenuPrincipal;
+    private Alert alertFalhaLogin;
     private Form formExibirAmigo;
     private Form formLocalizarAmigos;
     private TextField tfNome;
@@ -107,6 +350,8 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
             display.setCurrent(alert, nextDisplayable);
         }//GEN-END:|5-switchDisplayable|1|5-postSwitch
         // write post-switch user code here
+        if ( nextDisplayable == listMenuPrincipal )
+            listMenuPrincipal.setTitle("Olá, " + _usuario.nickName);
     }//GEN-BEGIN:|5-switchDisplayable|2|
     //</editor-fold>//GEN-END:|5-switchDisplayable|2|
 
@@ -118,11 +363,21 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
+        if (displayable == alertFalhaLogin) {//GEN-BEGIN:|7-commandAction|1|58-preAction
+            if (command == voltarErroLogin) {//GEN-END:|7-commandAction|1|58-preAction
         if (displayable == formExibirAmigo) {//GEN-BEGIN:|7-commandAction|1|71-preAction
             if (command == backCmdExibirAmigo) {//GEN-END:|7-commandAction|1|71-preAction
                 // write pre-action user code here
+                switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|2|58-postAction
                 switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|2|71-postAction
                 // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|3|27-preAction
+        } else if (displayable == formExibirRecado) {
+            if (command == backCommand) {//GEN-END:|7-commandAction|3|27-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFormListarRecados());//GEN-LINE:|7-commandAction|4|27-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|48-preAction
             }//GEN-BEGIN:|7-commandAction|3|27-preAction
         } else if (displayable == formExibirRecado) {
             if (command == backCmdExibirRecado) {//GEN-END:|7-commandAction|3|27-preAction
@@ -131,10 +386,12 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
                 // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|5|48-preAction
         } else if (displayable == formListarRecados) {
+            if (command == backCommand2) {//GEN-END:|7-commandAction|5|48-preAction
             if (command == backCmdListarRecados) {//GEN-END:|7-commandAction|5|48-preAction
                 // write pre-action user code here
                 switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|6|48-postAction
                 // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|7|36-preAction
             }//GEN-BEGIN:|7-commandAction|7|65-preAction
         } else if (displayable == formLocalizarAmigos) {
             if (command == backCmdLocalizarAmigos) {//GEN-END:|7-commandAction|7|65-preAction
@@ -153,31 +410,56 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
                 // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|13|36-preAction
         } else if (displayable == listMenuPrincipal) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|36-preAction
             if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|13|36-preAction
                 // write pre-action user code here
+                listMenuPrincipalAction();//GEN-LINE:|7-commandAction|8|36-postAction
                 listMenuPrincipalAction();//GEN-LINE:|7-commandAction|14|36-postAction
                 // write post-action user code here
+            } else if (command == backCommand1) {//GEN-LINE:|7-commandAction|9|43-preAction
             } else if (command == backCmdMenuPrincipal) {//GEN-LINE:|7-commandAction|15|43-preAction
                 // write pre-action user code here
+                switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|10|43-postAction
                 switchDisplayable(null, getLoginScreen());//GEN-LINE:|7-commandAction|16|43-postAction
                 // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|11|24-preAction
             } else if (command == exitCmdMenuPrincipal) {//GEN-LINE:|7-commandAction|17|75-preAction
                 // write pre-action user code here
 //GEN-LINE:|7-commandAction|18|75-postAction
                 // write post-action user code here
             }//GEN-BEGIN:|7-commandAction|19|24-preAction
         } else if (displayable == loginScreen) {
+            if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|11|24-preAction
             if (command == LoginScreen.LOGIN_COMMAND) {//GEN-END:|7-commandAction|19|24-preAction
                 // write pre-action user code here
+                ExecutaSolicitacao es = new ExecutaSolicitacao(this,
                 switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|20|24-postAction
+                        getListMenuPrincipal(),
+                        getAlertFalhaLogin(),
+                        "login",
+                        ExecutaSolicitacao.USUARIO,
+                        new String[] { "username", "password" },
+                        new String[] { loginScreen.getUsername(), loginScreen.getPassword()});
+                Thread t = new Thread(es);
+
+
+
+                t.start();
+//GEN-LINE:|7-commandAction|12|24-postAction
                 // write post-action user code here
+            } else if (command == exitCommand1) {//GEN-LINE:|7-commandAction|13|52-preAction
             } else if (command == exitCmdLoginScreen) {//GEN-LINE:|7-commandAction|21|52-preAction
                 // write pre-action user code here
+                exitMIDlet();//GEN-LINE:|7-commandAction|14|52-postAction
                 exitMIDlet();//GEN-LINE:|7-commandAction|22|52-postAction
                 // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|15|7-postCommandAction
+        }//GEN-END:|7-commandAction|15|7-postCommandAction
             }//GEN-BEGIN:|7-commandAction|23|7-postCommandAction
         }//GEN-END:|7-commandAction|23|7-postCommandAction
         // write post-action user code here
+    }//GEN-BEGIN:|7-commandAction|16|
+    //</editor-fold>//GEN-END:|7-commandAction|16|
     }//GEN-BEGIN:|7-commandAction|24|
     //</editor-fold>//GEN-END:|7-commandAction|24|
 
@@ -246,6 +528,8 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
             loginScreen.setCommandListener(this);
             loginScreen.setBGColor(-3355444);
             loginScreen.setFGColor(0);
+            loginScreen.setPassword("teste");
+            loginScreen.setUsername("daniel");
             loginScreen.setUseLoginButton(false);
             loginScreen.setLoginButtonText("Logon");//GEN-END:|22-getter|1|22-postInit
             // write post-init user code here
@@ -309,7 +593,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     public List getListMenuPrincipal() {
         if (listMenuPrincipal == null) {//GEN-END:|34-getter|0|34-preInit
             // write pre-init user code here
-            listMenuPrincipal = new List("Menu Principal", Choice.IMPLICIT);//GEN-BEGIN:|34-getter|1|34-postInit
+            listMenuPrincipal = new List("", Choice.IMPLICIT);//GEN-BEGIN:|34-getter|1|34-postInit
             listMenuPrincipal.append("Ver recados", null);
             listMenuPrincipal.append("Localizar amigo", null);
             listMenuPrincipal.append("Ver v\u00EDdeos", null);
@@ -384,7 +668,40 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     }
     //</editor-fold>//GEN-END:|53-getter|2|
 
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: voltarErroLogin ">//GEN-BEGIN:|57-getter|0|57-preInit
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCmdLocalizarAmigos ">//GEN-BEGIN:|58-getter|0|58-preInit
+    /**
+     * Returns an initiliazed instance of voltarErroLogin component.
+     * @return the initialized component instance
+     */
+    public Command getVoltarErroLogin() {
+        if (voltarErroLogin == null) {//GEN-END:|57-getter|0|57-preInit
+            // write pre-init user code here
+            voltarErroLogin = new Command("Voltar", Command.BACK, 0);//GEN-LINE:|57-getter|1|57-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|57-getter|2|
+        return voltarErroLogin;
+    }
+    //</editor-fold>//GEN-END:|57-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: alertFalhaLogin ">//GEN-BEGIN:|56-getter|0|56-preInit
+    /**
+     * Returns an initiliazed instance of alertFalhaLogin component.
+     * @return the initialized component instance
+     */
+    public Alert getAlertFalhaLogin() {
+        if (alertFalhaLogin == null) {//GEN-END:|56-getter|0|56-preInit
+            // write pre-init user code here
+            alertFalhaLogin = new Alert("Falha no login", "Usu\u00E1rio ou senha inv\u00E1lidos!", null, AlertType.ERROR);//GEN-BEGIN:|56-getter|1|56-postInit
+            alertFalhaLogin.addCommand(getVoltarErroLogin());
+            alertFalhaLogin.setCommandListener(this);
+            alertFalhaLogin.setTimeout(Alert.FOREVER);//GEN-END:|56-getter|1|56-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|56-getter|2|
+        return alertFalhaLogin;
+    }
+    //</editor-fold>//GEN-END:|56-getter|2|
+
     /**
      * Returns an initiliazed instance of okCmdLocalizarAmigos component.
      * @return the initialized component instance
@@ -633,99 +950,6 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     public void destroyApp(boolean unconditional) {
     }
 
-    private void executaChamada()
-    {
-        //XmlParser parser;
-    }
-
-    /**
-     * Executa a chamada http e devolve o array de bytes com o conteúdo
-     * @param url Url a recuperar
-     * @param parametros Parâmetros a serem enviados pela solicitação
-     * @return dados recebidos, ou null se houve algum erro
-     */
-    private byte[] recuperaConteudo(String url, String[] parametros)
-    {
-      HttpConnection connection = null;
-      InputStream inputstream = null;
-      byte[] retorno = null;
-
-      try
-      {
-        connection = (HttpConnection) Connector.open(url);
-        //HTTP Request
-        connection.setRequestMethod(HttpConnection.GET);
-        //connection.setRequestProperty("Content-Type","//text plain");
-        connection.setRequestProperty("Connection", "close");
-        // HTTP Response
-        //System.out.println("Status Line Code: " + connection.getResponseCode());
-        //System.out.println("Status Line Message: " + connection.getResponseMessage());
-
-        if (connection.getResponseCode() == HttpConnection.HTTP_OK)
-        {
-          //System.out.println(
-          //  connection.getHeaderField(0)+ " " + connection.getHeaderFieldKey(0));
-          //System.out.println(
-          // "Header Field Date: " + connection.getHeaderField("date"));
-          //String str;
-          inputstream = connection.openInputStream();
-          int length = (int) connection.getLength();
-
-          if (length != -1)
-          {
-              // Neste caso sabemos exatamente quantos bytes voltam
-            //byte incomingData[] = new byte[length];
-              retorno = new byte[length];
-            inputstream.read(retorno);
-            //str = new String(incomingData);
-          }
-          else
-          {
-            ByteArrayOutputStream bytestream =
-                  new ByteArrayOutputStream();
-            int ch;
-            while ((ch = inputstream.read()) != -1)
-            {
-              bytestream.write(ch);
-            }
-            retorno = bytestream.toByteArray();
-            //str = new String(bytestream.toByteArray());
-            bytestream.close();
-          }
-          //System.out.println(str);
-        }
-      }
-      catch(IOException error)
-      {
-       return null;
-      }
-      finally
-      {
-        if (inputstream!= null)
-        {
-          try
-          {
-            inputstream.close();
-          }
-          catch( Exception error)
-          {
-             /*log error*/
-          }
-        }
-        if (connection != null)
-        {
-          try
-          {
-             connection.close();
-          }
-          catch( Exception error)
-          {
-             /*log error*/
-          }
-        }
-      }
-      return retorno;
-    }
 
     
 }
