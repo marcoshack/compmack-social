@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -39,8 +40,9 @@ public class LoginControllerME extends BaseControllerME {
     throws ServletException, IOException {
         
         String username, password;
-        response.setContentType("text/xml;charset=UTF-8");
         ResultadoUsuario r = new ResultadoUsuario();
+
+        response.setContentType("text/xml;charset=UTF-8");
 
         username = request.getParameter("username");
         password = request.getParameter("password");

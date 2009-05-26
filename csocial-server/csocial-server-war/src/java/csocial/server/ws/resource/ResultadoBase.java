@@ -11,5 +11,4 @@ package csocial.server.ws.resource;
  */
 public class ResultadoBase {
     public boolean sucesso;
-    public String cookie;
 }
