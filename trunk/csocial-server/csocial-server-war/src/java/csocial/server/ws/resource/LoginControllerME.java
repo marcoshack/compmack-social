@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXB;
+import javax.xml.bind.annotation.XmlRootElement;
 
-class resultado
+@XmlRootElement(name = "resultado")
+class ResultadoUsuario extends ResultadoBase
 {
-    public boolean sucesso;
     public User usuario;
-    public String cookie;
 }
 
 /**
@@ -40,7 +40,7 @@ public class LoginControllerME extends BaseControllerME {
         
         String username, password;
         response.setContentType("text/xml;charset=UTF-8");
-        resultado r = new resultado();
+        ResultadoUsuario r = new ResultadoUsuario();
 
         username = request.getParameter("username");
         password = request.getParameter("password");
