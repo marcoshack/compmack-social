@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.midlet.*;
@@ -74,15 +75,17 @@ class ExecutaSolicitacao implements Runnable
         {
             conteudo = recuperaConteudo(url, parametros, conteudos);
 
+            String x = new String(conteudo);
+            //StringStre
+
             parser.setInput(new InputStreamReader(new ByteArrayInputStream(conteudo)));
 
-            int valor;
             String tag, resultado;
 
             // Recupera a primeira tag (o nome do objeto)
-            valor = parser.nextTag();
+            parser.nextTag();
             // Recupera o sucesso/falha da chamada
-            valor = parser.nextTag();
+            parser.nextTag();
 
             tag = parser.getName();
 
@@ -94,6 +97,7 @@ class ExecutaSolicitacao implements Runnable
                     sucesso = true;
             }
 
+            // Extrai os objetos
             if ( sucesso )
             {
                 switch(tipoConteudo)
@@ -101,26 +105,110 @@ class ExecutaSolicitacao implements Runnable
                     case USUARIO:
                         midlet.setUsuario(recuperaUsuario(parser));
                         break;
+                    case LISTA_RECADOS:
+                        midlet.setMensagens(recuperaRecados(parser));
                 }
             }
         }
         catch(IOException ioe)
         {
+            System.out.println(ioe.getMessage());
         }
         catch(XmlPullParserException e)
         {
+            System.out.println(e.getMessage());
         }
 
         return sucesso;
     }
 
+    mensagem[] recuperaRecados(XmlPullParser parser) throws XmlPullParserException, IOException
+    {
+        Vector lista = new Vector();
+        mensagem m;
+        mensagem[] retorno;
+
+        do
+        {
+            m = recuperaRecado(parser);
+
+            if ( m != null )
+                lista.addElement(m);
+
+        } while ( m != null );
+
+        retorno = new mensagem[lista.size()];
+        lista.copyInto(retorno);
+
+        return retorno;
+    }
+
+    mensagem recuperaRecado(XmlPullParser parser) throws XmlPullParserException, IOException
+    {
+        mensagem m = null;
+        int valor;
+
+        do {
+            valor = parser.nextTag();
+
+            if ( parser.getName().equals("resultado") )
+                return null;
+            
+        } while ( valor == parser.END_TAG);
+
+        if ( valor == parser.END_DOCUMENT )
+            return null;
+
+        if ( parser.getName().equals("message") )
+        {
+            m = new mensagem();
+
+            for (int i = 0 ; i < parser.getAttributeCount(); i++)
+            {
+                String nome = parser.getAttributeName(i),
+                        conteudo = parser.getAttributeValue(i);
+
+                if ( nome.equals("status") )
+                    m.status = conteudo;
+                else if ( nome.equals("postDate") )
+                    m.postDate = conteudo;
+                else if ( nome.equals("id") )
+                    m.id = Integer.parseInt(conteudo);
+            }
+
+            m.author = recuperaUsuario(parser);
+            m.owner = recuperaUsuario(parser);
+
+            do {
+                valor = parser.nextTag();
+            } while ( valor == parser.END_TAG);
+
+            if ( parser.getName().equals("subject") )
+                m.subject = parser.nextText();
+
+            do {
+                valor = parser.nextTag();
+            } while ( valor == parser.END_TAG);
+
+            if ( parser.getName().equals("text") )
+                m.text = parser.nextText();
+        }
+
+        return m;
+    }
+
     usuario recuperaUsuario(XmlPullParser parser) throws XmlPullParserException, IOException
     {
         usuario u = null;
+        int valor;
 
-        parser.nextTag();
+        do
+        {
+            valor = parser.nextTag();
+        } while ( valor == parser.END_TAG );
 
-        if ( parser.getName().equals("usuario") )
+        //if ( parser.getName().equals("usuario") )
+        if ( valor == parser.START_TAG )
         {
             u = new usuario();
 
@@ -138,7 +226,7 @@ class ExecutaSolicitacao implements Runnable
                 else if ( nome.equals("id") )
                     u.id = Integer.parseInt(conteudo);
                 else if ( nome.equals("email") )
-                    u.email = parser.getAttributeValue("email", null);
+                    u.email = conteudo;
             }
         }
 
@@ -153,103 +241,115 @@ class ExecutaSolicitacao implements Runnable
      */
     private byte[] recuperaConteudo(String url, String[] parametros, String[] conteudos)
     {
-      HttpConnection connection = null;
-      InputStream inputstream = null;
-      byte[] retorno = null/*, dadosEnvio*/;
-      String solicitacao = "";
+        HttpConnection connection = null;
+        InputStream inputstream = null;
+        byte[] retorno = null/*, dadosEnvio*/;
+        String solicitacao = "";
+        String cookie;
 
-      try
-      {
-          for(int i = 0 ; i < parametros.length; i++ )
-          {
-            solicitacao += parametros[i] + "=" + conteudos[i];
-
-            if ( i != parametros.length - 1 )
-                solicitacao += "&";
-          }
-
-          //dadosEnvio = solicitacao.getBytes();
-
-          url = url + "?" + solicitacao;
-        connection = (HttpConnection) Connector.open(url);
-
-        /*connection.setRequestMethod(HttpConnection.POST);
-        connection.setRequestProperty("Content-Length", "" + dadosEnvio.length);
-        connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-        connection.setRequestProperty("Connection", "close");
-        
-        OutputStream os = connection.openOutputStream();
-
-        os.write(dadosEnvio);
-        os.flush();
-        os.close();*/
-
-        if (connection.getResponseCode() == HttpConnection.HTTP_OK)
+        try
         {
-          //System.out.println(
-          //  connection.getHeaderField(0)+ " " + connection.getHeaderFieldKey(0));
-          //System.out.println(
-          // "Header Field Date: " + connection.getHeaderField("date"));
-          //String str;
-          inputstream = connection.openInputStream();
-          int length = (int) connection.getLength();
-
-          if (length != -1)
-          {
-              // Neste caso sabemos exatamente quantos bytes voltam
-            //byte incomingData[] = new byte[length];
-              retorno = new byte[length];
-            inputstream.read(retorno);
-            //str = new String(incomingData);
-          }
-          else
-          {
-            ByteArrayOutputStream bytestream =
-                  new ByteArrayOutputStream();
-            int ch;
-            while ((ch = inputstream.read()) != -1)
+            if ( parametros != null && conteudos != null )
             {
-              bytestream.write(ch);
-            }
-            retorno = bytestream.toByteArray();
-            //str = new String(bytestream.toByteArray());
-            bytestream.close();
-          }
-          //System.out.println(str);
-        }
-      }
-      catch(IOException error)
-      {
-       return null;
-      }
-      finally
-      {
-        if (inputstream!= null)
-        {
-          try
-          {
-            inputstream.close();
-          }
-          catch( Exception error)
-          {
-             /*log error*/
-          }
-        }
-        if (connection != null)
-        {
-          try
-          {
-             connection.close();
-          }
-          catch( Exception error)
-          {
-             /*log error*/
-          }
-        }
-      }
-      return retorno;
-    }
+                for(int i = 0 ; i < parametros.length; i++ )
+                {
+                    solicitacao += parametros[i] + "=" + conteudos[i];
 
+                    if ( i != parametros.length - 1 )
+                        solicitacao += "&";
+                }
+            }
+            //dadosEnvio = solicitacao.getBytes();
+
+            url = url + "?" + solicitacao;
+            connection = (HttpConnection) Connector.open(url);
+            cookie = midlet.getCookie();
+
+            if ( cookie != null )
+                connection.setRequestProperty("Cookie", cookie);
+
+            /*connection.setRequestMethod(HttpConnection.POST);
+            connection.setRequestProperty("Content-Length", "" + dadosEnvio.length);
+            connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            connection.setRequestProperty("Connection", "close");
+
+            OutputStream os = connection.openOutputStream();
+
+            os.write(dadosEnvio);
+            os.flush();
+            os.close();*/
+
+            int retornoHttp = connection.getResponseCode();
+
+            if (retornoHttp == HttpConnection.HTTP_OK)
+            {
+                if ( cookie == null )
+                {
+                    cookie = connection.getHeaderField("Set-Cookie");
+                    midlet.setCookie(cookie);
+                }
+
+                inputstream = connection.openInputStream();
+
+                int length = (int) connection.getLength();
+
+                if (length != -1)
+                {
+                    // Neste caso sabemos exatamente quantos bytes voltam
+                    retorno = new byte[length];
+                    inputstream.read(retorno);
+                }
+                else
+                {
+                    ByteArrayOutputStream bytestream =
+                        new ByteArrayOutputStream();
+
+                    int ch;
+
+                    while ((ch = inputstream.read()) != -1)
+                    {
+                        bytestream.write(ch);
+                    }
+
+                    retorno = bytestream.toByteArray();
+
+                    bytestream.close();
+                }
+
+            }
+        }
+        catch(IOException error)
+        {
+            return null;
+        }
+        finally
+        {
+            if (inputstream!= null)
+            {
+                try
+                {
+                    inputstream.close();
+                }
+                catch( Exception error)
+                {
+                  /*log error*/
+                }
+            }
+
+            if (connection != null)
+            {
+                try
+                {
+                    connection.close();
+                }
+                catch( Exception error)
+                {
+                    /*log error*/
+                }
+            }
+        }
+        return retorno;
+    }
 }
 
 /**
@@ -259,10 +359,33 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
 
     private boolean midletPaused = false;
     usuario _usuario;
+    mensagem[] _mensagens;
+    mensagem _mensagem;
+    String cookie;
+
+    public void setCookie(String cookie)
+    {
+        this.cookie = cookie;
+    }
+
+    public String getCookie()
+    {
+        return cookie;
+    }
 
     public void setUsuario(usuario u)
     {
         _usuario = u;
+    }
+
+    public void setMensagens(mensagem[] ms)
+    {
+        _mensagens = ms;
+    }
+
+    public void setMensagem(mensagem m)
+    {
+        _mensagem = m;
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Fields ">//GEN-BEGIN:|fields|0|
@@ -281,7 +404,7 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     private Command exitCmdMenuPrincipal;
     private Form formExibirRecado;
     private LoginScreen loginScreen;
-    private Form formListarRecados;
+    private List formListarRecados;
     private List listMenuPrincipal;
     private Alert alertFalhaLogin;
     private Form formExibirAmigo;
@@ -352,6 +475,31 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         // write post-switch user code here
         if ( nextDisplayable == listMenuPrincipal )
             listMenuPrincipal.setTitle("Olá, " + _usuario.nickName);
+        else if ( nextDisplayable == formListarRecados )
+        {
+            formListarRecados.deleteAll();
+            for(int i = 0; i < _mensagens.length ; i++)
+            {
+                formListarRecados.append(_mensagens[i].subject, null);
+            }
+        }
+        else if ( nextDisplayable == formExibirRecado )
+        {
+            StringItem assunto,
+                    data,
+                    remetente,
+                    texto;
+
+            assunto = (StringItem)formExibirRecado.get(0);
+            data = (StringItem)formExibirRecado.get(1);
+            remetente = (StringItem)formExibirRecado.get(2);
+            texto = (StringItem)formExibirRecado.get(3);
+
+            assunto.setText(_mensagem.subject);
+            data.setText(_mensagem.postDate);
+            remetente.setText("(" + _mensagem.owner.nickName + ")" + _mensagem.owner.realName);
+            texto.setText(_mensagem.text);
+        }
     }//GEN-BEGIN:|5-switchDisplayable|2|
     //</editor-fold>//GEN-END:|5-switchDisplayable|2|
 
@@ -388,10 +536,25 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
             }//GEN-BEGIN:|7-commandAction|5|48-preAction
         } else if (displayable == formListarRecados) {
             if (command == backCmdListarRecados) {//GEN-END:|7-commandAction|5|48-preAction
-                // write pre-action user code here
                 switchDisplayable(null, getListMenuPrincipal());//GEN-LINE:|7-commandAction|6|48-postAction
-                // write post-action user code here
-            }                                           
+                // write post-action user code here//GEN-LINE:|7-commandAction|8|
+            }
+            else if ( command == List.SELECT_COMMAND )
+            {
+                String __selectedString = formListarRecados.getString(formListarRecados.getSelectedIndex());
+                setMensagem(null);
+
+                if (__selectedString != null) {
+                    for ( int i = 0 ; i < _mensagens.length ; i++ )
+                    {
+                        if ( __selectedString.equals(_mensagens[i].subject) )
+                            setMensagem(_mensagens[i]);
+                    }
+                }
+
+                if ( _mensagem != null )
+                    switchDisplayable(null, getFormExibirRecado());
+            }
         } else if (displayable == formLocalizarAmigos) {
             if (command == backCmdLocalizarAmigos) {                                         
                 // write pre-action user code here
@@ -426,6 +589,10 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         } else if (displayable == loginScreen) {
             if (command == LoginScreen.LOGIN_COMMAND) {                                          
                 // write pre-action user code here
+
+                // Limpa a sessão, se existir
+                setCookie(null);
+
                 ExecutaSolicitacao es = new ExecutaSolicitacao(this,
                         getListMenuPrincipal(),
                         getAlertFalhaLogin(),
@@ -434,8 +601,6 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
                         new String[] { "username", "password" },
                         new String[] { loginScreen.getUsername(), loginScreen.getPassword()});
                 Thread t = new Thread(es);
-
-
 
                 t.start();
 //GEN-LINE:|7-commandAction|12|24-postAction
@@ -471,9 +636,15 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
     public Form getFormExibirRecado() {
         if (formExibirRecado == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            formExibirRecado = new Form("Recado", new Item[] { });//GEN-BEGIN:|14-getter|1|14-postInit
+            formExibirRecado = new Form("Recado", 
+                new Item[] {
+                new StringItem("Assunto:", null),
+                new StringItem("Enviado em:", null),
+                new StringItem("Enviado por:", null),
+                new StringItem("Texto:", null)
+            });
             formExibirRecado.addCommand(getBackCmdExibirRecado());
-            formExibirRecado.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
+            formExibirRecado.setCommandListener(this);                                  
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
         return formExibirRecado;
@@ -528,10 +699,10 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
      * Returns an initiliazed instance of formListarRecados component.
      * @return the initialized component instance
      */
-    public Form getFormListarRecados() {
+    public List getFormListarRecados() {
         if (formListarRecados == null) {//GEN-END:|25-getter|0|25-preInit
             // write pre-init user code here
-            formListarRecados = new Form("Recados");//GEN-BEGIN:|25-getter|1|25-postInit
+            formListarRecados = new List("Recados", Choice.IMPLICIT);//GEN-BEGIN:|25-getter|1|25-postInit
             formListarRecados.addCommand(getBackCmdListarRecados());
             formListarRecados.setCommandListener(this);//GEN-END:|25-getter|1|25-postInit
             // write post-init user code here
@@ -603,7 +774,14 @@ public class CSocialMIDlet extends MIDlet implements CommandListener {
         if (__selectedString != null) {
             if (__selectedString.equals("Ver recados")) {//GEN-END:|34-action|1|38-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getFormListarRecados());//GEN-LINE:|34-action|2|38-postAction
+                ExecutaSolicitacao es = new ExecutaSolicitacao(this,
+                        getFormListarRecados(),
+                        null,
+                        "message",
+                        ExecutaSolicitacao.LISTA_RECADOS,
+                        null, null);
+                Thread t = new Thread(es);
+                t.start();
                 // write post-action user code here
             } else if (__selectedString.equals("Localizar amigo")) {//GEN-LINE:|34-action|3|39-preAction
                 // write pre-action user code here
