@@ -113,4 +113,15 @@ public class MessageManagerTest extends GenericManagerTest {
         assertTrue("Nenhuma mensagem encontrada com padrao " + pattern 
                 + "para o usuario " + owner, msgList.size() == 1);
     }
+
+    @Test
+    public void testNoResult() {
+        startTransaction();
+        User author = createUser("noResultUser", getEntityManager());
+        commit();
+
+        List<Message> msgList = msgManager.findByOwner(author);
+
+        assertEquals("Message list is not empty", 0, msgList.size());
+    }
 }
