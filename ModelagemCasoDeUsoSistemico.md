@@ -1,0 +1,1 @@
+![http://compmack-social.googlecode.com/svn/static/images/modelagem-uc-sistemico.png](http://compmack-social.googlecode.com/svn/static/images/modelagem-uc-sistemico.png)

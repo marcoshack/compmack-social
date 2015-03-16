@@ -1,0 +1,1 @@
+Utilize o menu lateral para navegar no conteúdo do Wiki.

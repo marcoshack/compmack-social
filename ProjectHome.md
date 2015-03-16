@@ -1,0 +1,1 @@
+Aplicação de rede social para uso acadêmico desenvolvida por alunos da turma 9N do primeiro semestre de 2009 do curso de Ciência da Computação da Universidade Presbiteriana Mackenzie.

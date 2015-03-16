@@ -1,0 +1,1 @@
+![http://compmack-social.googlecode.com/svn/static/images/modelagem-wae.png](http://compmack-social.googlecode.com/svn/static/images/modelagem-wae.png)
